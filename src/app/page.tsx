@@ -4,8 +4,8 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div>
-        <h1>Chiara ist dumm</h1>
-        <h2>yooo</h2>
+        <h1>Luca ist der krasseste in SWE</h1>
+        <h2>Verifiziert von Jürgen Zimmermann</h2>
       </div>
     </main>
   )
