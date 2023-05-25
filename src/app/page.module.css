@@ -1,11 +1,11 @@
 .main {
   display: flex;
-  background: url(../../public/next.svg);
+  background: url(../../public/Hintergrundbild.jpg);
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   padding: 6rem;
-  min-height: 100vh;
+  /** min-height: 100vh; */
   background-color: #123451;
   font: bold;
   font-size: large;
