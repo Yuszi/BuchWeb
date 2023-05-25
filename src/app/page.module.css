@@ -1,10 +1,16 @@
 .main {
   display: flex;
+  background: url(../../public/next.svg);
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   padding: 6rem;
   min-height: 100vh;
+  background-color: #123451;
+  font: bold;
+  font-size: large;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background-image: -webkit-radial-gradient();;
 }
 
 .description {
@@ -23,6 +29,10 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+}
+
+.myStuff {
+  color:aqua;
 }
 
 .description p {
