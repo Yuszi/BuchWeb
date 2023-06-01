@@ -1,4 +1,4 @@
-import './globals.css'
+import './page.module.css';
 import Link from 'next/link'
 import { Inter } from 'next/font/google'
 
@@ -24,6 +24,9 @@ export default function RootLayout({
             </Link>
             <Link href="/notes">
               Notes
+            </Link>
+            <Link href="/create">
+              Add a book
             </Link>
           </nav>
           {children}

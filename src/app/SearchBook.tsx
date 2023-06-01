@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import styles from './page.module.css';
+
 export default function SearchBook(){
     const [pathId, SetPathId] = useState('');
     const [path, SetPath] = useState('');
@@ -23,14 +25,15 @@ export default function SearchBook(){
         value={pathId}
       />
       <Link href={`http://localhost:3000/${path}/${pathId}`}>
-        <button type="button" className="btn btn-primary">Suchen
+        <button type="button" className={styles.button}>Suchen
       </button></Link>
     <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
-        <button className="dropdown-item" type="button" onClick={() => {
-            SetPath('titel');
-            SetPlaceholderText('Enter Titel')
+        <button className={styles.button} type="button" onClick={() => {
+          SetPath('titel');
+          SetPlaceholderText('Enter Titel')
         }}>Titel</button>
-        <button className="dropdown-item" type="button" onClick={() => {
+
+        <button className={styles.button} type="button" onClick={() => {
             SetPath('isbn');
             SetPlaceholderText('Enter ISBN')
             }}>ISBN</button>

@@ -1,5 +1,5 @@
 import SearchBook from "./SearchBook";
-import './app.module.css';
+import './page.module.css';
 export default function Page(){
 
   return(
