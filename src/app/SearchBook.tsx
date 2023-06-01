@@ -17,28 +17,41 @@ export default function SearchBook(){
 
     return (
         
-    <>
-      <input
-        type="text"
-        placeholder={placeholderText}
-        onChange={e => SetPathId(e.target.value)} 
-        value={pathId}
-      />
-      <Link href={`http://localhost:3000/${path}/${pathId}`}>
-        <button type="button" className={styles.button}>Suchen
-      </button></Link>
-    <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
-        <button className={styles.button} type="button" onClick={() => {
-          SetPath('titel');
-          SetPlaceholderText('Enter Titel')
-        }}>Titel</button>
-
-        <button className={styles.button} type="button" onClick={() => {
-            SetPath('isbn');
-            SetPlaceholderText('Enter ISBN')
-            }}>ISBN</button>
-    </div>
-    </>        
+<>
+  <input
+    type="text"
+    placeholder={placeholderText}
+    onChange={e => SetPathId(e.target.value)} 
+    value={pathId}
+  />
+  <Link href={`http://localhost:3000/${path}/${pathId}`}>
+    <button type="button" className={styles.button}>
+      Suchen
+    </button>
+  </Link>
+  <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
+    <button
+      className={styles.button}
+      type="button"
+      onClick={() => {
+        SetPath('titel');
+        SetPlaceholderText('Enter Titel');
+      }}
+    >
+      Titel
+    </button>
+    <button
+      className={styles.button}
+      type="button"
+      onClick={() => {
+        SetPath('isbn');
+        SetPlaceholderText('Enter ISBN');
+      }}
+    >
+      ISBN
+    </button>
+  </div>
+</>
     )
 
 }
