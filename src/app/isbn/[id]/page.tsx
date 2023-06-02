@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 export default function ListBookWithTitel(){
 
-    const [isbn, SetIsbn] = useState('');
+    const [titel, SetTitel] = useState('');
     const [preis, SetPreis] = useState('');
     const [homepage, SetHomepage] = useState('');
     const [datum, SetDatum] = useState('');
@@ -14,15 +14,15 @@ export default function ListBookWithTitel(){
     
 
 
-    const titel = useParams();
+    const isbn = useParams();
 
     const getBookWithTitel = () => {
-        axios.get(`https://localhost:3002/rest/?titel=${titel.id}`)
+        axios.get(`https://localhost:3002/rest/?isbn=${isbn.id}`)
             .then(res => {
                 // wichtigen Teil des Responses filtern
                 const data = res['data']['_embedded']['buecher']['0'];
 
-                SetIsbn(data.isbn);
+                SetTitel(data.titel.titel);
                 SetPreis(data.preis);
                 SetHomepage(data.homepage);
                 SetDatum(data.datum);
@@ -36,13 +36,13 @@ export default function ListBookWithTitel(){
             })
     }
     useEffect(() => {
-        console.log(titel.id);
+        console.log(isbn.id);
         getBookWithTitel();
     }, []);
     return (
         <>
-            <h1>{titel.id}</h1>
-            <h3>ISBN:{isbn}</h3>
+            <h1>{titel}</h1>
+            <h3>ISBN:{isbn.id}</h3>
             <h3>Preis:{preis}€</h3>
             <h3>Homepage:{homepage}</h3>
             <h3>Datum:{datum}</h3>
