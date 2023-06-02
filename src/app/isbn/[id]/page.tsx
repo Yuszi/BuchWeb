@@ -1,5 +1,6 @@
 "use client";
 import axios from "axios";
+import Link from "next/link";
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from "react";
 
@@ -44,7 +45,7 @@ export default function ListBookWithTitel(){
             <h1>{titel}</h1>
             <h3>ISBN:{isbn.id}</h3>
             <h3>Preis:{preis}€</h3>
-            <h3>Homepage:{homepage}</h3>
+            <h3>Homepage: <Link href={`${homepage}`}> {homepage}</Link></h3>
             <h3>Datum:{datum}</h3>
             <h3>Rabatt:{rabatt}</h3>
         </>
