@@ -15,35 +15,35 @@ export default function CreateLOL() {
   const [schlagwörter, setSchlagwörter] = useState('');
   const [calendarDate, setCalendarDate] = useState(new Date());
 
-  const handleIsbnChange = (e) => {
+  const handleIsbnChange = (e: any) => {
     setIsbn(e.target.value);
   };
 
-  const handleRatingChange = (e) => {
+  const handleRatingChange = (e: any) => {
     setRating(parseInt(e.target.value));
   };
 
-  const handleArtChange = (e) => {
+  const handleArtChange = (e: any) => {
     setArt(e.target.value);
   };
 
-  const handlePreisChange = (e) => {
+  const handlePreisChange = (e: any) => {
     setPreis(e.target.value);
   };
 
-  const handleRabattChange = (e) => {
+  const handleRabattChange = (e: any) => {
     setRabatt(e.target.value);
   };
 
-  const handleLieferbarChange = (e) => {
+  const handleLieferbarChange = (e: any) => {
     setLieferbar(e.target.value);
   };
 
-  const handleSchlagwörterChange = (e) => {
+  const handleSchlagwörterChange = (e: any) => {
     setSchlagwörter(e.target.value);
   };
 
-  const handleDateChange = (date) => {
+  const handleDateChange = (date: Date) => {
     setCalendarDate(date);
   };
 
