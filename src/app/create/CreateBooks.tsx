@@ -1,9 +1,9 @@
 "use client";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import styles from '../page.module.css';
-import { CDBRating, CDBContainer } from 'cdbreact';
+import axios from 'axios';
 
 export default function CreateLOL() {
   const [isbn, setIsbn] = useState('');
@@ -14,6 +14,9 @@ export default function CreateLOL() {
   const [lieferbar, setLieferbar] = useState('');
   const [schlagwörter, setSchlagwörter] = useState('');
   const [calendarDate, setCalendarDate] = useState(new Date());
+
+
+  const [token, SetToken] = useState('');
 
   const handleIsbnChange = (e: any) => {
     setIsbn(e.target.value);
@@ -43,10 +46,95 @@ export default function CreateLOL() {
     setSchlagwörter(e.target.value);
   };
 
-  const handleDateChange = (date: Date) => {
-    setCalendarDate(date);
+  const formatDate = (date: any) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
 
+  const handleDateChange = (date: Date) => {
+    setCalendarDate(date);
+    formatDate(calendarDate);
+  };
+
+  useEffect(() => {
+    console.log(isbn);
+    console.log(rating);
+    console.log(art);
+    console.log(parseFloat(preis).toFixed(2));
+    console.log(rabatt);
+    console.log(lieferbar.toLowerCase());
+    console.log(schlagwörter);
+    console.log(formatDate(calendarDate));
+  });
+
+  const handleSubmit = () => {
+    const payload = {
+      isbn: isbn,
+      rating: rating,
+      art: art,
+      preis: parseFloat(preis).toFixed(2),
+      rabatt: parseFloat(rabatt),
+      lieferbar: lieferbar.toLowerCase(),
+      datum: formatDate(calendarDate),
+      homepage: 'https://post.rest',
+      schlagwoerter: schlagwörter.split(',').map((keyword) => keyword.trim()),
+      titel: {
+        titel: 'Ich liebe die rumänische Bildung',
+        untertitel: 'die sind echt gut in SWA',
+      },
+      abbildungen: [
+        {
+          beschriftung: 'Abb. 1',
+          contentType: 'img/png',
+        },
+      ],
+    };
+
+    console.log(payload);
+
+    const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      };
+
+    axios
+      .post('https://localhost:3002/rest', payload, config)
+      .then((response) => {
+        // Handle the response data
+        console.log(response.data);
+      })
+      .catch((error) => {
+        // Handle the error
+        console.error(error);
+      });
+  };
+
+    const handleLogin = () => {
+        const loginUrl = 'https://localhost:3002/auth/login';
+
+        const loginData = {
+            username: 'admin',
+            password: 'p'
+        };
+    
+        axios.post(loginUrl, loginData, {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }}).then(
+            e => {
+                console.log(e);
+
+                SetToken(e.data.token);
+                console.log(token);
+                console.log(loginData);
+                console.log('WOWWWw WIR SIND DRINNE');
+            }
+        )
+    }
   return (
     <form>
       <div className="form-group">
@@ -139,14 +227,20 @@ export default function CreateLOL() {
         </select>
       </div>
       <Calendar
-        value={calendarDate}
+        value={calendarDate.toISOString()}
         onChange={handleDateChange}
         showNeighboringMonth={false}
         locale={'de-DE'}
       />
-      <button type="button" className={styles.button}>
+      <button type="button" className={styles.button} onClick={handleSubmit}>
         Buch anlegen
       </button>
+
+      <div>
+        <button type="button" className={styles.button} onClick={handleLogin}>
+            Als Admin einloggen
+        </button>
+      </div>
     </form>
   );
 }
