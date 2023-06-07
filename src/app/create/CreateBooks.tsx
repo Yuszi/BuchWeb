@@ -61,18 +61,6 @@ export default function CreateLOL() {
     formatDate(calendarDate);
   };
 
-  useEffect(() => {
-    console.log(isbn);
-    console.log(rating);
-    console.log(art);
-    console.log(parseFloat(preis).toFixed(2));
-    console.log(rabatt);
-    console.log(lieferbar.toLowerCase());
-    console.log(schlagwörter);
-    console.log(formatDate(calendarDate));
-  });
-
-
   const handleSubmit = () => {
     const payload = {
       "isbn": isbn,
@@ -240,7 +228,7 @@ export default function CreateLOL() {
           className="form-control"
           id="exampleFormControlInput1"
           placeholder="Titel"
-          value={rabatt}
+          value={titel}
           onChange={handleTitelChange}
         />
       </div>
@@ -251,7 +239,7 @@ export default function CreateLOL() {
           className="form-control"
           id="exampleFormControlInput1"
           placeholder="Untertitel"
-          value={rabatt}
+          value={untertitel}
           onChange={handleUntertitelChange}
         />
       </div>
