@@ -28,7 +28,7 @@ export default function SearchBook() {
           Suchen
         </button>
       </Link>
-      <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
+      <div>
         <button
           className={styles.button}
           type="button"

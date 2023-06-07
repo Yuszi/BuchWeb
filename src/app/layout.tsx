@@ -1,7 +1,7 @@
 import './page.module.css';
 import Link from 'next/link';
 import { Inter } from 'next/font/google';
-import ReactDOM from 'react-dom'
+import 'bootstrap/dist/css/bootstrap.css';
 import Login from './login';
 
 
