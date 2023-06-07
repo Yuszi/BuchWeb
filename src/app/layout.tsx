@@ -1,6 +1,9 @@
 import './page.module.css';
 import Link from 'next/link';
 import { Inter } from 'next/font/google';
+import ReactDOM from 'react-dom'
+import Login from './login';
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,6 +26,7 @@ export default function RootLayout({
             <Link href="/notes">Notes</Link>
             <Link href="/create">Add a book</Link>
             <Link href="/books">List of all books</Link>
+            <Login />
           </nav>
           {children}
         </main>

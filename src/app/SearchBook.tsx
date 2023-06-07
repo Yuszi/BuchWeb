@@ -13,7 +13,7 @@ export default function SearchBook() {
   useEffect(() => {
     console.log(pathId);
     SetPlaceholderText('Press a Button for search option');
-  }, []);
+  }, [pathId]);
 
   return (
     <>
