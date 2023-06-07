@@ -1,10 +1,9 @@
-import SearchBook from "./SearchBook";
+import SearchBook from './SearchBook';
 import './page.module.css';
-export default function Page(){
-
-  return(
+export default function Page() {
+  return (
     <>
-    <SearchBook />
+      <SearchBook />
     </>
-  )
-}    
+  );
+}

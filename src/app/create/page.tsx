@@ -1,10 +1,9 @@
-import CreateLOL from "./CreateBooks";
+import CreateLOL from './CreateBooks';
 
-export default function CreateABook(){
-
+export default function CreateABook() {
   return (
     <>
       <CreateLOL />
     </>
-  )
+  );
 }

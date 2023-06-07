@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -17,7 +17,6 @@ export default function CreateLOL() {
 
   const [titel, setTitel] = useState('');
   const [untertitel, setUntertitel] = useState('');
-
 
   const [token, SetToken] = useState('');
 
@@ -63,23 +62,23 @@ export default function CreateLOL() {
 
   const handleSubmit = () => {
     const payload = {
-      "isbn": isbn,
-      "rating": rating,
-      "art": art,
-      "preis": Number(parseFloat(preis).toFixed(2)),
-      "rabatt": parseFloat(rabatt),
-      "lieferbar": Boolean(lieferbar.toLowerCase()),
-      "datum": formatDate(calendarDate),
-      "homepage": 'https://post.rest',
-      "schlagwoerter": schlagwörter.split(',').map((keyword) => keyword.trim()),
-      "titel": {
-        "titel": titel,
-        "untertitel": untertitel,
+      isbn: isbn,
+      rating: rating,
+      art: art,
+      preis: Number(parseFloat(preis).toFixed(2)),
+      rabatt: parseFloat(rabatt),
+      lieferbar: Boolean(lieferbar.toLowerCase()),
+      datum: formatDate(calendarDate),
+      homepage: 'https://post.rest',
+      schlagwoerter: schlagwörter.split(',').map((keyword) => keyword.trim()),
+      titel: {
+        titel: titel,
+        untertitel: untertitel,
       },
-      "abbildungen": [
+      abbildungen: [
         {
-          "beschriftung": 'Abb. 1',
-          "contentType": 'img/png',
+          beschriftung: 'Abb. 1',
+          contentType: 'img/png',
         },
       ],
     };
@@ -87,10 +86,10 @@ export default function CreateLOL() {
     console.log(payload);
 
     const config = {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      };
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
     console.log('https://localhost:3002/rest', payload, config);
 
@@ -105,31 +104,32 @@ export default function CreateLOL() {
         console.error(error);
       });
 
-      confirm(`Succesfully added ${titel}`);
+    confirm(`Succesfully added ${titel}`);
   };
 
-    const handleLogin = () => {
-        const loginUrl = 'https://localhost:3002/auth/login';
+  const handleLogin = () => {
+    const loginUrl = 'https://localhost:3002/auth/login';
 
-        const loginData = {
-            username: 'admin',
-            password: 'p'
-        };
-    
-        axios.post(loginUrl, loginData, {
+    const loginData = {
+      username: 'admin',
+      password: 'p',
+    };
+
+    axios
+      .post(loginUrl, loginData, {
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }}).then(
-            e => {
-                console.log(e);
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      })
+      .then((e) => {
+        console.log(e);
 
-                SetToken(e.data.token);
-                console.log(token);
-                console.log(loginData);
-                console.log('WOWWWw WIR SIND DRINNE');
-            }
-        )
-    }
+        SetToken(e.data.token);
+        console.log(token);
+        console.log(loginData);
+        console.log('WOWWWw WIR SIND DRINNE');
+      });
+  };
   return (
     <form>
       <div className="form-group">
@@ -255,7 +255,7 @@ export default function CreateLOL() {
 
       <div>
         <button type="button" className={styles.button} onClick={handleLogin}>
-            Als Admin einloggen
+          Als Admin einloggen
         </button>
       </div>
     </form>
