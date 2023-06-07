@@ -2,8 +2,6 @@ import './page.module.css';
 import Link from 'next/link';
 import { Inter } from 'next/font/google';
 import 'bootstrap/dist/css/bootstrap.css';
-import Login from './login';
-
 
 const inter = Inter({ subsets: ['latin'] });
 

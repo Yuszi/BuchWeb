@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -19,11 +19,10 @@ export default function CreateLOL() {
   const [titel, setTitel] = useState('');
   const [untertitel, setUntertitel] = useState('');
 
-  
   const [token, SetToken] = useState('');
-  
+
   useEffect(() => {
-    SetToken(String(getCookie("token")));
+    SetToken(String(getCookie('token')));
     console.log(token);
   }, [token]);
 
@@ -67,26 +66,25 @@ export default function CreateLOL() {
     formatDate(calendarDate);
   };
 
-
   const handleSubmit = () => {
     const payload = {
-      "isbn": isbn,
-      "rating": rating,
-      "art": art,
-      "preis": Number(parseFloat(preis).toFixed(2)),
-      "rabatt": parseFloat(rabatt),
-      "lieferbar": Boolean(lieferbar.toLowerCase()),
-      "datum": formatDate(calendarDate),
-      "homepage": 'https://post.rest',
-      "schlagwoerter": schlagwörter.split(',').map((keyword) => keyword.trim()),
-      "titel": {
-        "titel": titel,
-        "untertitel": untertitel,
+      isbn: isbn,
+      rating: rating,
+      art: art,
+      preis: Number(parseFloat(preis).toFixed(2)),
+      rabatt: parseFloat(rabatt),
+      lieferbar: Boolean(lieferbar.toLowerCase()),
+      datum: formatDate(calendarDate),
+      homepage: 'https://post.rest',
+      schlagwoerter: schlagwörter.split(',').map((keyword) => keyword.trim()),
+      titel: {
+        titel: titel,
+        untertitel: untertitel,
       },
-      "abbildungen": [
+      abbildungen: [
         {
-          "beschriftung": 'Abb. 1',
-          "contentType": 'img/png',
+          beschriftung: 'Abb. 1',
+          contentType: 'img/png',
         },
       ],
     };
@@ -94,10 +92,10 @@ export default function CreateLOL() {
     console.log(payload);
 
     const config = {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      };
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
     console.log('https://localhost:3002/rest', payload, config);
 
@@ -111,16 +109,14 @@ export default function CreateLOL() {
       .catch((error) => {
         // Handle the error
 
-        if (error == 'AxiosError: Request failed with status code 403'){
-          alert('Du bist wohl kein Admin')
-        }else if(error == 'AxiosError: Request failed with status code 400'){
-          alert('Keine richtige ISBN angegeben')
-        }else{
+        if (error == 'AxiosError: Request failed with status code 403') {
+          alert('Du bist wohl kein Admin');
+        } else if (error == 'AxiosError: Request failed with status code 400') {
+          alert('Keine richtige ISBN angegeben');
+        } else {
           alert(error);
         }
-      })
-      ;
-
+      });
   };
 
   return (
