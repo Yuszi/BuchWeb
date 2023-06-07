@@ -26,7 +26,6 @@ export default function RootLayout({
             <Link href="/notes">Notes</Link>
             <Link href="/create">Add a book</Link>
             <Link href="/books">List of all books</Link>
-            <Login />
           </nav>
           {children}
         </main>

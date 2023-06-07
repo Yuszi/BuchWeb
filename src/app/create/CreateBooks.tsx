@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import styles from '../page.module.css';
@@ -19,8 +19,13 @@ export default function CreateLOL() {
   const [titel, setTitel] = useState('');
   const [untertitel, setUntertitel] = useState('');
 
-
+  
   const [token, SetToken] = useState('');
+  
+  useEffect(() => {
+    SetToken(String(getCookie("token")));
+    console.log(token);
+  }, [token]);
 
   const handleIsbnChange = (e: any) => {
     setIsbn(e.target.value);
@@ -64,10 +69,6 @@ export default function CreateLOL() {
 
 
   const handleSubmit = () => {
-    const tokenPreset = getCookie("token");
-    console.log(tokenPreset);
-
-    SetToken(String(tokenPreset));
     const payload = {
       "isbn": isbn,
       "rating": rating,
@@ -105,13 +106,21 @@ export default function CreateLOL() {
       .then((response) => {
         // Handle the response data
         console.log(response.data);
+        confirm(`Succesfully added ${titel}`);
       })
       .catch((error) => {
         // Handle the error
-        console.error(error);
-      });
 
-      confirm(`Succesfully added ${titel}`);
+        if (error == 'AxiosError: Request failed with status code 403'){
+          alert('Du bist wohl kein Admin')
+        }else if(error == 'AxiosError: Request failed with status code 400'){
+          alert('Keine richtige ISBN angegeben')
+        }else{
+          alert(error);
+        }
+      })
+      ;
+
   };
 
   return (
