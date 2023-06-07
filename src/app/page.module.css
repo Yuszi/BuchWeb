@@ -2,6 +2,16 @@
   box-sizing: border-box;
 }
 
+/* styles.module.css */
+
+.background-image {
+  background-image: url("C:\Zimmermann\BuchWeb\public/hintergrundbild.jpg");
+  background-size: cover;
+  background-position: center;
+  /* Weitere Hintergrund-Styles hier */
+}
+
+
 html,
 body {
   padding: 0;
