@@ -8,12 +8,15 @@ import axios from 'axios';
 export default function CreateLOL() {
   const [isbn, setIsbn] = useState('');
   const [rating, setRating] = useState(0);
-  const [art, setArt] = useState('');
-  const [preis, setPreis] = useState('');
+  const [art, setArt] = useState('DRUCKAUSGABE');
+  const [preis, setPreis] = useState('0');
   const [rabatt, setRabatt] = useState('');
-  const [lieferbar, setLieferbar] = useState('');
-  const [schlagwörter, setSchlagwörter] = useState('');
+  const [lieferbar, setLieferbar] = useState('true');
+  const [schlagwörter, setSchlagwörter] = useState('JAVASCRIPT');
   const [calendarDate, setCalendarDate] = useState(new Date());
+
+  const [titel, setTitel] = useState('');
+  const [untertitel, setUntertitel] = useState('');
 
 
   const [token, SetToken] = useState('');
@@ -21,29 +24,29 @@ export default function CreateLOL() {
   const handleIsbnChange = (e: any) => {
     setIsbn(e.target.value);
   };
-
   const handleRatingChange = (e: any) => {
     setRating(parseInt(e.target.value));
   };
-
   const handleArtChange = (e: any) => {
     setArt(e.target.value);
   };
-
   const handlePreisChange = (e: any) => {
     setPreis(e.target.value);
   };
-
   const handleRabattChange = (e: any) => {
     setRabatt(e.target.value);
   };
-
   const handleLieferbarChange = (e: any) => {
     setLieferbar(e.target.value);
   };
-
   const handleSchlagwörterChange = (e: any) => {
     setSchlagwörter(e.target.value);
+  };
+  const handleTitelChange = (e: any) => {
+    setTitel(e.target.value);
+  };
+  const handleUntertitelChange = (e: any) => {
+    setUntertitel(e.target.value);
   };
 
   const formatDate = (date: any) => {
@@ -69,25 +72,26 @@ export default function CreateLOL() {
     console.log(formatDate(calendarDate));
   });
 
+
   const handleSubmit = () => {
     const payload = {
-      isbn: isbn,
-      rating: rating,
-      art: art,
-      preis: parseFloat(preis).toFixed(2),
-      rabatt: parseFloat(rabatt),
-      lieferbar: lieferbar.toLowerCase(),
-      datum: formatDate(calendarDate),
-      homepage: 'https://post.rest',
-      schlagwoerter: schlagwörter.split(',').map((keyword) => keyword.trim()),
-      titel: {
-        titel: 'Ich liebe die rumänische Bildung',
-        untertitel: 'die sind echt gut in SWA',
+      "isbn": isbn,
+      "rating": rating,
+      "art": art,
+      "preis": Number(parseFloat(preis).toFixed(2)),
+      "rabatt": parseFloat(rabatt),
+      "lieferbar": Boolean(lieferbar.toLowerCase()),
+      "datum": formatDate(calendarDate),
+      "homepage": 'https://post.rest',
+      "schlagwoerter": schlagwörter.split(',').map((keyword) => keyword.trim()),
+      "titel": {
+        "titel": titel,
+        "untertitel": untertitel,
       },
-      abbildungen: [
+      "abbildungen": [
         {
-          beschriftung: 'Abb. 1',
-          contentType: 'img/png',
+          "beschriftung": 'Abb. 1',
+          "contentType": 'img/png',
         },
       ],
     };
@@ -96,10 +100,11 @@ export default function CreateLOL() {
 
     const config = {
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         }
       };
+
+    console.log('https://localhost:3002/rest', payload, config);
 
     axios
       .post('https://localhost:3002/rest', payload, config)
@@ -111,6 +116,8 @@ export default function CreateLOL() {
         // Handle the error
         console.error(error);
       });
+
+      confirm(`Succesfully added ${titel}`);
   };
 
     const handleLogin = () => {
@@ -225,6 +232,28 @@ export default function CreateLOL() {
           <option>JAVASCRIPT</option>
           <option>TYPESCRIPT</option>
         </select>
+      </div>
+      <div className="form-group">
+        <label htmlFor="exampleFormControlInput1">Titel</label>
+        <input
+          type="text"
+          className="form-control"
+          id="exampleFormControlInput1"
+          placeholder="Titel"
+          value={rabatt}
+          onChange={handleTitelChange}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="exampleFormControlInput1">Untertitel</label>
+        <input
+          type="text"
+          className="form-control"
+          id="exampleFormControlInput1"
+          placeholder="Untertitel"
+          value={rabatt}
+          onChange={handleUntertitelChange}
+        />
       </div>
       <Calendar
         value={calendarDate.toISOString()}
