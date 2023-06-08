@@ -6,7 +6,7 @@ import styles from '../page.module.css';
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
 
-export default function CreateLOL() {
+export default function CreateBook() {
   const [isbn, setIsbn] = useState('');
   const [rating, setRating] = useState(0);
   const [art, setArt] = useState('DRUCKAUSGABE');
@@ -109,10 +109,13 @@ export default function CreateLOL() {
       .catch((error) => {
         // Handle the error
 
+        // TODO: switch, statt else if!
         if (error == 'AxiosError: Request failed with status code 403') {
           alert('Du bist wohl kein Admin');
         } else if (error == 'AxiosError: Request failed with status code 400') {
           alert('Keine richtige ISBN angegeben');
+        } else if (error == 'AxiosError: Network Error') {
+          alert('Backend Server ist nicht gestartet!');
         } else {
           alert(error);
         }
@@ -233,7 +236,11 @@ export default function CreateLOL() {
         showNeighboringMonth={false}
         locale={'de-DE'}
       />
-      <button type="button" className={styles.button} onClick={handleSubmit}>
+      <button
+        type="button"
+        className="btn btn-secondary btn-lg btn-block"
+        onClick={handleSubmit}
+      >
         Buch anlegen
       </button>
     </form>

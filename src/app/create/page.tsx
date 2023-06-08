@@ -1,6 +1,6 @@
-import CreateLOL from './CreateBooks';
 import Head from 'next/head';
 import Script from 'next/script';
+import CreateBook from './CreateBooks';
 
 export default function CreateABook() {
   return (
@@ -20,7 +20,7 @@ export default function CreateABook() {
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossOrigin="anonymous"
       />
-      <CreateLOL />
+      <CreateBook />
     </>
   );
 }

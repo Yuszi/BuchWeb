@@ -17,38 +17,48 @@ export default function SearchBook() {
 
   return (
     <>
-      <input
-        type="text"
-        placeholder={placeholderText}
-        onChange={(e) => SetPathId(e.target.value)}
-        value={pathId}
-      />
-      <Link href={`http://localhost:3000/${path}/${pathId}`}>
-        <button type="button" className={styles.button}>
-          Suchen
-        </button>
-      </Link>
+      <div className="form-group">
+        <label htmlFor="exampleFormControlInput1"></label>
+        <input
+          type="text"
+          className="form-control"
+          id="exampleFormControlInput1"
+          placeholder={placeholderText}
+          onChange={(e) => SetPathId(e.target.value)}
+          value={pathId}
+        />
+      </div>
       <div>
-        <button
-          className={styles.button}
-          type="button"
-          onClick={() => {
-            SetPath('titel');
-            SetPlaceholderText('Enter Titel');
-          }}
-        >
-          Titel
-        </button>
-        <button
-          className={styles.button}
-          type="button"
-          onClick={() => {
-            SetPath('isbn');
-            SetPlaceholderText('Enter ISBN');
-          }}
-        >
-          ISBN
-        </button>
+        <div className="btn-group" role="group" aria-label="Basic example">
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => {
+              SetPath('titel');
+              SetPlaceholderText('Enter Titel');
+            }}
+          >
+            Titel
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => {
+              SetPath('isbn');
+              SetPlaceholderText('Enter ISBN');
+            }}
+          >
+            ISBN
+          </button>
+        </div>
+      </div>
+      <div>
+        <br />
+        <Link href={`http://localhost:3000/${path}/${pathId}`}>
+          <button type="button" className="btn btn-secondary btn-lg btn-block">
+            Suchen
+          </button>
+        </Link>
       </div>
     </>
   );
