@@ -1,7 +1,9 @@
 import SearchBook from './SearchBook';
 import Head from 'next/head';
 import Script from 'next/script';
-import './page.module.css';
+import './page.module.css'; 
+import Image from 'next/image'
+ 
 
 export default function Page() {
   return (
