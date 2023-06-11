@@ -61,8 +61,8 @@ export default function CreateBook() {
     return `${year}-${month}-${day}`;
   };
 
-  const handleDateChange = (date: Date) => {
-    setCalendarDate(date);
+  const handleDateChange = (date: any) => {
+    setCalendarDate(new Date(date));
     formatDate(calendarDate);
   };
 
