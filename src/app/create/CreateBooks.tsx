@@ -109,7 +109,22 @@ export default function CreateBook() {
       .catch((error) => {
         // Handle the error
 
-        // TODO: switch, statt else if!
+        switch (error.response?.status) {
+          case 400:
+            alert('Keine richtige ISBN angegeben');
+            break;
+          case 403:
+            alert('Du bist wohl kein Admin');
+            break;
+          case undefined:
+            alert('Backend Server ist nicht gestartet!');
+            break;
+          default:
+            alert(error.message);
+            break;
+        }
+/* Replace switch if it shows anomalous behavior, else remove this comment
+
         if (error == 'AxiosError: Request failed with status code 403') {
           alert('Du bist wohl kein Admin');
         } else if (error == 'AxiosError: Request failed with status code 400') {
@@ -119,6 +134,7 @@ export default function CreateBook() {
         } else {
           alert(error);
         }
+*/
       });
   };
 
