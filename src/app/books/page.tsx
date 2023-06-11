@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
+import styles from './page.module.css';
 
 interface Book {
   titel: string;
@@ -62,9 +63,9 @@ export default function ListBookWithTitel() {
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossOrigin="anonymous"
       />
-      <table>
+      <table className={styles.table}>
         <thead>
-          <tr>
+          <tr className={styles.tr}>
             <th>ISBN</th>
             <th>Titel</th>
             <th>Preis</th>
