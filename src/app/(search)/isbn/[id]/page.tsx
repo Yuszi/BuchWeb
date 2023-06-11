@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 
-export default function ListBookWithTitel() {
+export default function ListBookWithIsbn() {
   const [titel, SetTitel] = useState('');
   const [preis, SetPreis] = useState('');
   const [homepage, SetHomepage] = useState('');
@@ -54,14 +54,31 @@ export default function ListBookWithTitel() {
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossOrigin="anonymous"
       />
-      <h1>{titel}</h1>
-      <h3>ISBN:{isbn.id}</h3>
-      <h3>Preis:{preis}€</h3>
-      <h3>
-        Homepage: <Link href={`${homepage}`}> {homepage}</Link>
-      </h3>
-      <h3>Datum:{datum}</h3>
-      <h3>Rabatt:{rabatt}</h3>
+      <table>
+        <thead>
+          <tr >
+            <th>ISBN</th>
+            <th>Titel</th>
+            <th>Preis</th>
+            <th>Homepage</th>
+            <th>Datum</th>
+            <th>Rabatt</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td>{isbn.id}</td>
+              <td>{titel}</td>
+              <td>{preis}</td>
+              <td>
+                <a href={homepage}>{homepage}</a>
+              </td>
+              <td>{datum}</td>
+              <td>{rabatt}</td>
+            </tr>
+        </tbody>
+      </table>
+
     </>
   );
 }
