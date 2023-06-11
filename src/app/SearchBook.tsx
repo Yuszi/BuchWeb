@@ -26,6 +26,7 @@ export default function SearchBook() {
           placeholder={placeholderText}
           onChange={(e) => SetPathId(e.target.value)}
           value={pathId}
+          style={{ width: '250%' }}
         />
       </div>
       <div>
@@ -37,7 +38,7 @@ export default function SearchBook() {
               SetPath('titel');
               SetPlaceholderText('Enter Titel');
             }}
-          >
+            >
             Titel
           </button>
           <button
