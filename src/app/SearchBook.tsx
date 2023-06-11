@@ -54,7 +54,7 @@ export default function SearchBook() {
       </div>
       <div>
         <br />
-        <Link href={`http://localhost:3000/${path}/${pathId}`}>
+        <Link href={`/${path}/${pathId}`}>
           <button type="button" className="btn btn-secondary btn-lg btn-block">
             Suchen
           </button>
