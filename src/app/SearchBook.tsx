@@ -3,9 +3,6 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import styles from './page.module.css';
-import { faL } from '@fortawesome/free-solid-svg-icons';
-
 export default function SearchBook() {
   const [pathId, SetPathId] = useState('');
   const [path, SetPath] = useState('');

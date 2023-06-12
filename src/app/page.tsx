@@ -2,10 +2,6 @@ import SearchBook from './SearchBook';
 import Head from 'next/head';
 import Script from 'next/script';
 import './page.module.css'; 
-import Image from 'next/image'
-import profilePic from './hintergrund.png'
-import { useEffect } from 'react';
-
 
 export default function Page(...args: []) {
   return (
