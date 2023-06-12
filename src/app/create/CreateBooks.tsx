@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import styles from '../page.module.css';
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
 
