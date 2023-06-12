@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import styles from '../page.module.css';
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
 
@@ -61,8 +60,8 @@ export default function CreateBook() {
     return `${year}-${month}-${day}`;
   };
 
-  const handleDateChange = (date: Date) => {
-    setCalendarDate(date);
+  const handleDateChange = (date: any) => {
+    setCalendarDate(new Date(date));
     formatDate(calendarDate);
   };
 
@@ -109,7 +108,22 @@ export default function CreateBook() {
       .catch((error) => {
         // Handle the error
 
-        // TODO: switch, statt else if!
+        switch (error.response?.status) {
+          case 400:
+            alert('Keine richtige ISBN angegeben');
+            break;
+          case 403:
+            alert('Du bist wohl kein Admin');
+            break;
+          case undefined:
+            alert('Backend Server ist nicht gestartet!');
+            break;
+          default:
+            alert(error.message);
+            break;
+        }
+/* Replace switch if it shows anomalous behavior, else remove this comment
+
         if (error == 'AxiosError: Request failed with status code 403') {
           alert('Du bist wohl kein Admin');
         } else if (error == 'AxiosError: Request failed with status code 400') {
@@ -119,6 +133,7 @@ export default function CreateBook() {
         } else {
           alert(error);
         }
+*/
       });
   };
 
