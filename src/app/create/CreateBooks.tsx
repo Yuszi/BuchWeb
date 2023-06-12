@@ -61,8 +61,8 @@ export default function CreateBook() {
     return `${year}-${month}-${day}`;
   };
 
-  const handleDateChange = (date: Date) => {
-    setCalendarDate(date);
+  const handleDateChange = (date: any) => {
+    setCalendarDate(new Date(date));
     formatDate(calendarDate);
   };
 
@@ -109,15 +109,19 @@ export default function CreateBook() {
       .catch((error) => {
         // Handle the error
 
-        // TODO: switch, statt else if!
-        if (error == 'AxiosError: Request failed with status code 403') {
-          alert('Du bist wohl kein Admin');
-        } else if (error == 'AxiosError: Request failed with status code 400') {
-          alert('Keine richtige ISBN angegeben');
-        } else if (error == 'AxiosError: Network Error') {
-          alert('Backend Server ist nicht gestartet!');
-        } else {
-          alert(error);
+        switch (error.response?.status) {
+          case 400:
+            alert('Keine richtige ISBN angegeben');
+            break;
+          case 403:
+            alert('Du bist wohl kein Admin');
+            break;
+          case undefined:
+            alert('Backend Server ist nicht gestartet!');
+            break;
+          default:
+            alert(error.message);
+            break;
         }
       });
   };
