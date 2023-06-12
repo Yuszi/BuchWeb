@@ -11,6 +11,7 @@ export default function SearchBook() {
   const [pathId, SetPathId] = useState('');
   const [path, SetPath] = useState('');
   const [placeholderText, SetPlaceholderText] = useState('');
+  const [disableInput, SetDisableInput] = useState(true);
 
   useEffect(() => {
     console.log(pathId);
@@ -38,6 +39,7 @@ export default function SearchBook() {
           onKeyPress={handleKeyPress}
           value={pathId}
           style={{ width: '300%' }}
+          disabled={disableInput}
         />
       </div>
       <div>
@@ -48,6 +50,7 @@ export default function SearchBook() {
             onClick={() => {
               SetPath('titel');
               SetPlaceholderText('Gebe den Titel ein');
+              SetDisableInput(false);
             }}
           >
             Titel
@@ -58,6 +61,7 @@ export default function SearchBook() {
             onClick={() => {
               SetPath('isbn');
               SetPlaceholderText('Gebe die ISBN ein');
+              SetDisableInput(false);
             }}
           >
             ISBN
