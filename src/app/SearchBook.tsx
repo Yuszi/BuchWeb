@@ -3,7 +3,11 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
+import styles from './page.module.css';
+import { useRouter } from 'next/navigation';
+
 export default function SearchBook() {
+  const router = useRouter();
   const [pathId, SetPathId] = useState('');
   const [path, SetPath] = useState('');
   const [placeholderText, SetPlaceholderText] = useState('');
@@ -14,11 +18,19 @@ export default function SearchBook() {
 
   useEffect(() => {
     console.log(pathId);
-    SetPlaceholderText(defaultSearchBarPlaceholderText);
+    SetPlaceholderText(
+      'Klicke den Button an, um entweder mit ISBN oder Titel zu suchen!',
+    );
   }, [pathId]);
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleKeyPress = (e: any) => {
+    if (e.key === 'Enter') {
+      router.push(`/${path}/${pathId}`);
+    }
   };
 
   const onFilterChange = (selectedPath: string, selectedPlaceholder: string) => {
@@ -43,8 +55,9 @@ export default function SearchBook() {
           id="exampleFormControlInput1"
           placeholder={placeholderText}
           onChange={(e) => SetPathId(e.target.value)}
+          onKeyPress={handleKeyPress}
           value={pathId}
-          style={{ width: '250%' }}
+          style={{ width: '300%' }}
         />
       </div>
       <div className='d-flex'>
@@ -65,13 +78,13 @@ export default function SearchBook() {
             aria-labelledby="dropdownMenuButton">
             <button
               className="dropdown-item"
-              onClick={() => onFilterChange('titel', 'Enter Titel')}
+              onClick={() => onFilterChange('titel', 'Gebe den Titel ein')}
               >
               Titel
             </button>
             <button
               className="dropdown-item"
-              onClick={() => onFilterChange('isbn', 'Enter ISBN')}
+              onClick={() => onFilterChange('isbn', 'Gebe die ISBN ein')}
             >
               ISBN
             </button>

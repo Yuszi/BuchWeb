@@ -5,18 +5,19 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
+import styles from './page.module.css';
 
-export default function ListBookWithTitel() {
-  const [isbn, SetIsbn] = useState('');
-  const [preis, SetPreis] = useState('');
-  const [homepage, SetHomepage] = useState('');
-  const [datum, SetDatum] = useState('');
-  const [rabatt, SetRabatt] = useState('');
+export default function ListBookWithIsbn() {
+  const [isbn, SetIsbn] = useState('?');
+  const [preis, SetPreis] = useState('?');
+  const [homepage, SetHomepage] = useState('?');
+  const [datum, SetDatum] = useState('?');
+  const [rabatt, SetRabatt] = useState('?');
 
   const titel = useParams();
 
-  const getBookWithTitel = () => {
-    axios.get(`https://localhost:3002/rest/?titel=${titel.id}`).then((res) => {
+  const getBookWithTitel = (titel: any) => {
+    axios.get(`https://localhost:3000/rest/?titel=${titel}`).then((res) => {
       // wichtigen Teil des Responses filtern
       const data = res['data']['_embedded']['buecher']['0'];
 
@@ -35,7 +36,7 @@ export default function ListBookWithTitel() {
   };
   useEffect(() => {
     console.log(titel.id);
-    getBookWithTitel();
+    getBookWithTitel(titel.id);
   }, [titel.id]);
   return (
     <>
@@ -55,13 +56,28 @@ export default function ListBookWithTitel() {
         crossOrigin="anonymous"
       />
       <h1>{titel.id}</h1>
-      <h3>ISBN:{isbn}</h3>
-      <h3>Preis:{preis}€</h3>
-      <h3>
-        Homepage: <Link href={`${homepage}`}> {homepage}</Link>
-      </h3>
-      <h3>Datum:{datum}</h3>
-      <h3>Rabatt:{rabatt}</h3>
+      <table>
+        <thead>
+          <tr className={styles.tr}>
+            <th>ISBN</th>
+            <th>Preis</th>
+            <th>Homepage</th>
+            <th>Datum</th>
+            <th>Rabatt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{isbn}</td>
+            <td>{preis}</td>
+            <td>
+              <a href={homepage}>{homepage}</a>
+            </td>
+            <td>{datum}</td>
+            <td>{rabatt}</td>
+          </tr>
+        </tbody>
+      </table>
     </>
   );
 }
