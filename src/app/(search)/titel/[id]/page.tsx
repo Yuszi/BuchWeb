@@ -17,7 +17,7 @@ export default function ListBookWithIsbn() {
   const titel = useParams();
 
   const getBookWithTitel = (titel: any) => {
-    axios.get(`https://localhost:3002/rest/?titel=${titel}`).then((res) => {
+    axios.get(`https://localhost:3000/rest/?titel=${titel}`).then((res) => {
       // wichtigen Teil des Responses filtern
       const data = res['data']['_embedded']['buecher']['0'];
 

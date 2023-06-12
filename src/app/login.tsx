@@ -23,7 +23,7 @@ export default function Login() {
   }, []);
 
   const handleLogin = () => {
-    const loginUrl = 'https://localhost:3002/auth/login';
+    const loginUrl = 'https://localhost:3000/auth/login';
 
     const loginData = {
       username: username,

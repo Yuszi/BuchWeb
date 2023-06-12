@@ -97,10 +97,10 @@ export default function CreateBook() {
       },
     };
 
-    console.log('https://localhost:3002/rest', payload, config);
+    console.log('https://localhost:3000/rest', payload, config);
 
     axios
-      .post('https://localhost:3002/rest', payload, config)
+      .post('https://localhost:3000/rest', payload, config)
       .then((response) => {
         // Handle the response data
         console.log(response.data);
