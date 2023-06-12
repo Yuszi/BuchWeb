@@ -124,112 +124,112 @@ export default function CreateBook() {
 
   return (
     <form>
-  <div className="form-group form-group-wide">
-    <label htmlFor="exampleFormControlInput1">ISBN</label>
-    <input
-      type="text"
-      className="form-control"
-      id="exampleFormControlInput1"
-      placeholder="978-0-201-63361-0"
-      value={isbn}
-      onChange={handleIsbnChange}
-    />
-  </div>
-  <div className="form-group form-group-wide">
-    <label htmlFor="exampleFormControlSelect2">Rating</label>
-    <select
-      className="form-control"
-      id="exampleFormControlSelect2"
-      value={rating}
-      onChange={handleRatingChange}
-    >
-      <option value={1}>1</option>
-      <option value={2}>2</option>
-      <option value={3}>3</option>
-      <option value={4}>4</option>
-      <option value={5}>5</option>
-    </select>
-  </div>
-  <div className="form-group form-group-wide">
-    <label htmlFor="exampleFormControlSelect1">Art</label>
-    <select
-      className="form-control"
-      id="exampleFormControlSelect1"
-      value={art}
-      onChange={handleArtChange}
-    >
-      <option>DRUCKAUSGABE</option>
-      <option>KINDLE</option>
-    </select>
-  </div>
-  <div className="form-group form-group-wide">
-    <label htmlFor="exampleFormControlInput1">Preis</label>
-    <input
-      type="text"
-      className="form-control"
-      id="exampleFormControlInput1"
-      placeholder="200"
-      value={preis}
-      onChange={handlePreisChange}
-    />
-  </div>
-  <div className="form-group form-group-wide">
-    <label htmlFor="exampleFormControlInput1">Rabatt</label>
-    <input
-      type="text"
-      className="form-control"
-      id="exampleFormControlInput1"
-      placeholder="0.33"
-      value={rabatt}
-      onChange={handleRabattChange}
-    />
-  </div>
-  <div className="form-group form-group-wide">
-    <label htmlFor="exampleFormControlSelect1">Lieferbar</label>
-    <select
-      className="form-control"
-      id="exampleFormControlSelect1"
-      value={lieferbar}
-      onChange={handleLieferbarChange}
-    >
-      <option>True</option>
-      <option>False</option>
-    </select>
-  </div>
-  <div className="form-group form-group-wide">
-    <label htmlFor="exampleFormControlSelect1">Schlagwörter</label>
-    <select
-      className="form-control"
-      id="exampleFormControlSelect1"
-      value={schlagwörter}
-      onChange={handleSchlagwörterChange}
-    >
-      <option>JAVASCRIPT</option>
-      <option>TYPESCRIPT</option>
-    </select>
-  </div>
-  <div className="form-group form-group-wide">
-    <label htmlFor="exampleFormControlInput1">Titel</label>
-    <input
-      type="text"
-      className="form-control"
-      id="exampleFormControlInput1"
-      placeholder="Titel"
-      value={titel}
-      onChange={handleTitelChange}
-    />
-  </div>
-  <div className="form-group form-group-wide">
-    <label htmlFor="exampleFormControlInput1">Untertitel</label>
-    <input
-      type="text"
-      className="form-control"
-      id="exampleFormControlInput1"
-      placeholder="Untertitel"
-      value={untertitel}
-      onChange={handleUntertitelChange}
-    />
-  </div>
+      <div className="form-group form-group-wide">
+        <label htmlFor="exampleFormControlInput1">ISBN</label>
+        <input
+          type="text"
+          className="form-control"
+          id="exampleFormControlInput1"
+          placeholder="978-0-201-63361-0"
+          value={isbn}
+          onChange={handleIsbnChange}
+        />
+      </div>
+      <div className="form-group form-group-wide">
+        <label htmlFor="exampleFormControlSelect2">Rating</label>
+        <select
+          className="form-control"
+          id="exampleFormControlSelect2"
+          value={rating}
+          onChange={handleRatingChange}
+        >
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
+        </select>
+      </div>
+      <div className="form-group form-group-wide">
+        <label htmlFor="exampleFormControlSelect1">Art</label>
+        <select
+          className="form-control"
+          id="exampleFormControlSelect1"
+          value={art}
+          onChange={handleArtChange}
+        >
+          <option>DRUCKAUSGABE</option>
+          <option>KINDLE</option>
+        </select>
+      </div>
+      <div className="form-group form-group-wide">
+        <label htmlFor="exampleFormControlInput1">Preis</label>
+        <input
+          type="text"
+          className="form-control"
+          id="exampleFormControlInput1"
+          placeholder="200"
+          value={preis}
+          onChange={handlePreisChange}
+        />
+      </div>
+      <div className="form-group form-group-wide">
+        <label htmlFor="exampleFormControlInput1">Rabatt</label>
+        <input
+          type="text"
+          className="form-control"
+          id="exampleFormControlInput1"
+          placeholder="0.33"
+          value={rabatt}
+          onChange={handleRabattChange}
+        />
+      </div>
+      <div className="form-group form-group-wide">
+        <label htmlFor="exampleFormControlSelect1">Lieferbar</label>
+        <select
+          className="form-control"
+          id="exampleFormControlSelect1"
+          value={lieferbar}
+          onChange={handleLieferbarChange}
+        >
+          <option>True</option>
+          <option>False</option>
+        </select>
+      </div>
+      <div className="form-group form-group-wide">
+        <label htmlFor="exampleFormControlSelect1">Schlagwörter</label>
+        <select
+          className="form-control"
+          id="exampleFormControlSelect1"
+          value={schlagwörter}
+          onChange={handleSchlagwörterChange}
+        >
+          <option>JAVASCRIPT</option>
+          <option>TYPESCRIPT</option>
+        </select>
+      </div>
+      <div className="form-group form-group-wide">
+        <label htmlFor="exampleFormControlInput1">Titel</label>
+        <input
+          type="text"
+          className="form-control"
+          id="exampleFormControlInput1"
+          placeholder="Titel"
+          value={titel}
+          onChange={handleTitelChange}
+        />
+      </div>
+      <div className="form-group form-group-wide">
+        <label htmlFor="exampleFormControlInput1">Untertitel</label>
+        <input
+          type="text"
+          className="form-control"
+          id="exampleFormControlInput1"
+          placeholder="Untertitel"
+          value={untertitel}
+          onChange={handleUntertitelChange}
+        />
+      </div>
       <Calendar
         value={calendarDate.toISOString()}
         onChange={handleDateChange}

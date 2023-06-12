@@ -4,16 +4,26 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import styles from './page.module.css';
+import { useRouter } from 'next/navigation';
 
 export default function SearchBook() {
+  const router = useRouter();
   const [pathId, SetPathId] = useState('');
   const [path, SetPath] = useState('');
   const [placeholderText, SetPlaceholderText] = useState('');
 
   useEffect(() => {
     console.log(pathId);
-    SetPlaceholderText('Press a Button for search option');
+    SetPlaceholderText(
+      'Klicke den Button an, um entweder mit ISBN oder Titel zu suchen!',
+    );
   }, [pathId]);
+
+  const handleKeyPress = (e: any) => {
+    if (e.key === 'Enter') {
+      router.push(`/${path}/${pathId}`);
+    }
+  };
 
   return (
     <>
@@ -25,8 +35,9 @@ export default function SearchBook() {
           id="exampleFormControlInput1"
           placeholder={placeholderText}
           onChange={(e) => SetPathId(e.target.value)}
+          onKeyPress={handleKeyPress}
           value={pathId}
-          style={{ width: '250%' }}
+          style={{ width: '300%' }}
         />
       </div>
       <div>
@@ -36,9 +47,9 @@ export default function SearchBook() {
             className="btn btn-secondary"
             onClick={() => {
               SetPath('titel');
-              SetPlaceholderText('Enter Titel');
+              SetPlaceholderText('Gebe den Titel ein');
             }}
-            >
+          >
             Titel
           </button>
           <button
@@ -46,7 +57,7 @@ export default function SearchBook() {
             className="btn btn-secondary"
             onClick={() => {
               SetPath('isbn');
-              SetPlaceholderText('Enter ISBN');
+              SetPlaceholderText('Gebe die ISBN ein');
             }}
           >
             ISBN
@@ -57,7 +68,7 @@ export default function SearchBook() {
         <br />
         <Link href={`/${path}/${pathId}`}>
           <button type="button" className="btn btn-secondary btn-lg btn-block">
-               Suchen               
+            Suchen
           </button>
         </Link>
       </div>

@@ -20,7 +20,8 @@ export default function ListBookWithTitel() {
 
   const isbn = useParams();
 
-  const getBookWithTitel = () => {
+  useEffect(() => {
+    console.log(isbn.id);
     axios.get(`https://localhost:3002/rest/`).then((res) => {
       // wichtigen Teil des Responses filtern
       const bookList = res['data']['_embedded']['buecher'].map(
@@ -41,11 +42,7 @@ export default function ListBookWithTitel() {
       console.log(res);
       return res;
     });
-  };
-  useEffect(() => {
-    console.log(isbn.id);
-    getBookWithTitel();
-  }, []);
+  }, [isbn.id]);
   return (
     <>
       <Head>
