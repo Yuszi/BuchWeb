@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 
 import styles from './page.module.css';
 import { useRouter } from 'next/navigation';
+import { ThemeProvider, useTheme } from 'next-themes';
+import { Button } from 'react-bootstrap';
 
 export default function SearchBook() {
   const router = useRouter();
@@ -12,6 +14,7 @@ export default function SearchBook() {
   const [path, SetPath] = useState('');
   const [placeholderText, SetPlaceholderText] = useState('');
   const [disableInput, SetDisableInput] = useState(true);
+
 
   useEffect(() => {
     console.log(pathId);
@@ -27,7 +30,7 @@ export default function SearchBook() {
   };
 
   return (
-    <>
+    <ThemeProvider>
       <div className="form-group">
         <label htmlFor="exampleFormControlInput1"></label>
         <input
@@ -76,6 +79,9 @@ export default function SearchBook() {
           </button>
         </Link>
       </div>
-    </>
+      <div>
+
+    </div>
+    </ ThemeProvider>
   );
 }
