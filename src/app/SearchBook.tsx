@@ -14,13 +14,17 @@ export default function SearchBook() {
   const [path, SetPath] = useState('');
   const [placeholderText, SetPlaceholderText] = useState('');
   const [disableInput, SetDisableInput] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const defaultPlaceholder = 'Klicke den Button an, um entweder mit ISBN oder Titel zu suchen!';
 
 
   useEffect(() => {
     console.log(pathId);
     SetPlaceholderText(
-      'Klicke den Button an, um entweder mit ISBN oder Titel zu suchen!',
-    );
+      defaultPlaceholder,
+      );
   }, [pathId]);
 
   const handleKeyPress = (e: any) => {
@@ -29,9 +33,62 @@ export default function SearchBook() {
     }
   };
 
+  const onFilterChange = (selectedPath: string, selectedPlaceholder: string) => {
+    SetPath(selectedPath);
+    SetPlaceholderText(selectedPlaceholder);
+    setDropdownOpen(false);
+  }
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen)
+  };
+
   return (
     <ThemeProvider>
       <form>
+      {path ? (
+        <div>
+          Suche nach: {path}
+          <button onClick={() => { 
+            onFilterChange('', defaultPlaceholder);
+            SetDisableInput(true);
+          }}>
+            Filter zurücksetzen
+          </button>
+        </div>
+      ) : (
+      <div className="dropdown">
+        <button
+          className={`btn btn-secondary dropdown-toggle ${styles.dropdown}`}
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded={dropdownOpen}
+          onClick={toggleDropdown}
+        >
+          Filter
+        </button>
+        <div 
+        className={`dropdown-menu ${dropdownOpen ? 'show' : ''}`}
+        aria-labelledby="dropdownMenuButton">
+          <button 
+          className="btn btn-secondary dropdown-item" type="button"
+          onClick={() => { 
+            onFilterChange('titel', 'Gebe den Titel ein');
+            SetDisableInput(false);
+          }}>
+            Titel
+          </button>
+          <button className="btn btn-secondary dropdown-item" type="button"
+          onClick={() => { 
+            onFilterChange('isbn', 'Gebe die ISBN ein');
+            SetDisableInput(false);
+          }}>
+            ISBN
+          </button>
+        </div>
+    </div>)}
         <input 
         type="text" 
         placeholder={placeholderText}
