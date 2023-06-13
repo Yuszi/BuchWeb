@@ -2,6 +2,7 @@ import Head from 'next/head';
 import styles from './page.module.css';
 import Script from 'next/script';
 import 'bootstrap/dist/css/bootstrap.css';
+import Image from 'next/image';
 
 
 export default function Notes() {
@@ -25,13 +26,10 @@ export default function Notes() {
         </ol>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img className="d-block w-100" src={'/GettingStarted.png'} alt="First slide" />
+            <Image src="/GettingStarted.png" alt="First slide" width={1000} height={500} />
           </div>
           <div className="carousel-item">
-            <img className="d-block w-100" src={'/LearnMore.png'} alt="Second slide" />
-          </div>
-          <div className="carousel-item">
-            <img className="d-block w-100" src="..." alt="Third slide" />
+            <Image src="/LearnMore.png" alt="Second slide" width={1000} height={500} />
           </div>
         </div>
         <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
@@ -44,5 +42,6 @@ export default function Notes() {
         </a>
       </div>
     </>
-  )
+  );
 }
+
