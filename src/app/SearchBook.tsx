@@ -31,57 +31,23 @@ export default function SearchBook() {
 
   return (
     <ThemeProvider>
-      <div className="form-group">
-        <label htmlFor="exampleFormControlInput1"></label>
-        <input
-          type="text"
-          className="form-control"
-          id="exampleFormControlInput1"
-          placeholder={placeholderText}
-          onChange={(e) => SetPathId(e.target.value)}
-          onKeyDown={handleKeyPress}
-          value={pathId}
-          style={{ width: '300%' }}
-          disabled={disableInput}
-        />
-      </div>
-      <div>
-        <div className="btn-group" role="group" aria-label="Basic example">
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => {
-              SetPath('titel');
-              SetPlaceholderText('Gebe den Titel ein');
-              SetDisableInput(false);
-            }}
-          >
-            Titel
-          </button>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => {
-              SetPath('isbn');
-              SetPlaceholderText('Gebe die ISBN ein');
-              SetDisableInput(false);
-            }}
-          >
-            ISBN
-          </button>
-        </div>
-      </div>
-      <div>
-        <br />
-        <Link href={`/${path}/${pathId}`}>
-          <button type="button" className="btn btn-secondary btn-lg btn-block">
-            Suchen
+      <form>
+        <input 
+        type="text" 
+        placeholder={placeholderText}
+        onChange={(e) => SetPathId(e.target.value)}
+        onKeyDown={handleKeyPress}
+        value={pathId}
+        disabled={disableInput} />
+       <Link href={`/${path}/${pathId}`}> 
+        <button 
+        className='btn btn-secondary'
+        type="submit"
+        >
+          Suchen
           </button>
         </Link>
-      </div>
-      <div>
-
-    </div>
+      </form>
     </ ThemeProvider>
   );
 }
