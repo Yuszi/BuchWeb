@@ -36,7 +36,7 @@ export default function SearchBook() {
           id="exampleFormControlInput1"
           placeholder={placeholderText}
           onChange={(e) => SetPathId(e.target.value)}
-          onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyPress}
           value={pathId}
           style={{ width: '300%' }}
           disabled={disableInput}
