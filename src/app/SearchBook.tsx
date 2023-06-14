@@ -41,10 +41,10 @@ export default function SearchBook() {
 
   return (
     <ThemeProvider>
-      <form className={`${styles.form}`}>
+      <div className={`${styles.form}`}>
         <div className='dropdown'>
           <button 
-          className={`btn btn-primary dropdown-toggle ${styles.dropdown}`}
+          className={`btn btn-secondary dropdown-toggle ${styles.dropdown}`}
           type='button'
           id='dropDownMenuButton'
           data-bs-toggle='dropdown'
@@ -75,6 +75,7 @@ export default function SearchBook() {
             onClick={() => {
               onFilterChange('', defaultPlaceholder);
               SetDisableInput(true);
+              SetPathId('');
             }}>
               Zurücksetzen
             </a></li>
@@ -90,13 +91,13 @@ export default function SearchBook() {
         disabled={disableInput} />
         <Link href={`/${path}/${pathId}`}> 
           <button 
-          className={`btn btn-primary ${styles.button}`}
+          className={`btn btn-secondary ${styles.button}`}
           type="submit"
           >
             Suchen
           </button>
         </Link>
-      </form>
+      </div>
     </ ThemeProvider>
   );
 }
