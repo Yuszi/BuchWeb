@@ -1,4 +1,4 @@
-import './page.module.css';
+import styles from './page.module.css';
 import Link from 'next/link';
 import { Inter } from 'next/font/google';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -19,8 +19,8 @@ export default function RootLayout({
     <html>
       <body>
         <main>
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link className="navbar-brand" href="/">
+          <nav className={`navbar navbar-expand-lg navbar-light bg-light ${styles.navbar}`}>
+            <Link className={`navbar-brand ${styles.navbarBrand}`} href="/">
               Home
             </Link>
             <button
@@ -35,18 +35,18 @@ export default function RootLayout({
               <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
-              <ul className="navbar-nav">
-                <li className="nav-item">
+              <ul className={`navbar-nav ${styles.navbarList}`}>
+                <li className={`nav-item ${styles.navbarItem}`}>
                   <Link className="nav-link" href="/notes">
                     Notes
                   </Link>
                 </li>
-                <li className="nav-item">
+                <li className={`nav-item ${styles.navbarItem}`}>
                   <Link className="nav-link" href="/create">
                     Add a book
                   </Link>
                 </li>
-                <li className="nav-item">
+                <li className={`nav-item ${styles.navbarItem}`}>
                   <Link className="nav-link" href="/books">
                     List of all books
                   </Link>
