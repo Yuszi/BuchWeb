@@ -5,6 +5,7 @@ import 'react-calendar/dist/Calendar.css';
 import styles from '../page.module.css';
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
+import { cookies } from 'next/dist/client/components/headers';
 
 export default function CreateBook() {
   const [isbn, setIsbn] = useState('');
@@ -19,12 +20,6 @@ export default function CreateBook() {
   const [titel, setTitel] = useState('');
   const [untertitel, setUntertitel] = useState('');
 
-  const [token, SetToken] = useState('');
-
-  useEffect(() => {
-    SetToken(String(getCookie('token')));
-    console.log(token);
-  }, [token]);
 
   const handleIsbnChange = (e: any) => {
     setIsbn(e.target.value);
@@ -93,10 +88,11 @@ export default function CreateBook() {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${String(getCookie('token'))}`,
       },
     };
 
+    console.log(config);
     console.log('https://localhost:3000/rest', payload, config);
 
     axios
@@ -128,7 +124,7 @@ export default function CreateBook() {
         <label htmlFor="exampleFormControlInput1">ISBN</label>
         <input
           type="text"
-          className="form-control"
+          className={`form-control`}
           id="exampleFormControlInput1"
           placeholder="978-0-201-63361-0"
           value={isbn}
