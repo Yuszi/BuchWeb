@@ -19,7 +19,6 @@ export default function SearchBook() {
 
   const defaultPlaceholder = 'Klicke den Button an, um entweder mit ISBN oder Titel zu suchen!';
 
-
   useEffect(() => {
     console.log(pathId);
     SetPlaceholderText(
@@ -89,16 +88,15 @@ export default function SearchBook() {
         onKeyDown={handleKeyPress}
         value={pathId}
         disabled={disableInput} />
-       <Link href={`/${path}/${pathId}`}> 
-        <button 
-        className={`btn btn-primary ${styles.button}`}
-        type="submit"
-        >
-          Suchen
+        <Link href={`/${path}/${pathId}`}> 
+          <button 
+          className={`btn btn-primary ${styles.button}`}
+          type="submit"
+          >
+            Suchen
           </button>
         </Link>
       </form>
-
     </ ThemeProvider>
   );
 }
