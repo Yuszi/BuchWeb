@@ -1,13 +1,9 @@
-.root {
-  --height: 50px;
-  --button-width: 80px;
-}
-
 .form {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1rem;
+  margin-top: 4rem;
   width: 100%;
 }
 
@@ -17,7 +13,7 @@
   max-width: 600px;
   position: relative;
   padding: 0 .4rem;
-  height: var(--height);
+  height: 60px;
   width: 40%;
   font-family: 'Lato', sans-serif;
   color: black;
@@ -26,8 +22,8 @@
 }
 
 .button {
-  height: var(--height);
-  width: var(--button-width);
+  height: 60px;
+  width: 80px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   padding: 0.5rem;
   border: none;
@@ -36,10 +32,31 @@
 }
 
 .dropdown {
-  height: var(--height);
+  height: 60px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   padding: 0.5rem;
   border: none;
   border-radius: .25rem 0 0 .25rem;
   cursor: pointer;
+}
+
+.navbar {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+}
+
+.navbarList {
+  margin-left: auto;
+}
+
+.navbarItem {
+  margin-right: 50px;
+  font-size: 125%;
+}
+
+.navbarBrand {
+  margin: 10px;
+  margin-left: 20px;
+  font-size: 125%;
 }
