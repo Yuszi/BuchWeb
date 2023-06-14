@@ -37,18 +37,18 @@ export default function RootLayout({
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className={`navbar-nav ${styles.navbarList}`}>
                 <li className={`nav-item ${styles.navbarItem}`}>
-                  <Link className="nav-link" href="/notes">
-                    Notes
+                  <Link className="nav-link" href="/books">
+                    Liste aller Bücher
                   </Link>
                 </li>
                 <li className={`nav-item ${styles.navbarItem}`}>
                   <Link className="nav-link" href="/create">
-                    Add a book
+                    Buch hinzufügen
                   </Link>
                 </li>
                 <li className={`nav-item ${styles.navbarItem}`}>
-                  <Link className="nav-link" href="/books">
-                    List of all books
+                  <Link className="nav-link" href="/notes">
+                    Notizen
                   </Link>
                 </li>
               </ul>
