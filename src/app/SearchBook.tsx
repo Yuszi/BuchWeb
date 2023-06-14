@@ -44,7 +44,7 @@ export default function SearchBook() {
       <div className={`${styles.form}`}>
         <div className='dropdown'>
           <button 
-          className={`btn btn-secondary dropdown-toggle ${styles.dropdown}`}
+          className={`btn btn-secondary dropdown-toggle ${styles.dropdownMenuButton}`}
           type='button'
           id='dropDownMenuButton'
           data-bs-toggle='dropdown'
@@ -52,7 +52,7 @@ export default function SearchBook() {
           >
             {buttonText}
           </button>
-          <ul className='dropdown-menu' aria-labelledby='dropDownMenuButton'>
+          <ul className="dropdown-menu" aria-labelledby='dropDownMenuButton'>
             <li><a 
             className='dropdown-item btn btn-secondary' 
             onClick={() => { 
