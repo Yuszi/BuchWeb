@@ -2,11 +2,9 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-
 import styles from './page.module.css';
 import { useRouter } from 'next/navigation';
-import { ThemeProvider, useTheme } from 'next-themes';
-import { Button } from 'react-bootstrap';
+import { ThemeProvider } from 'next-themes';
 
 export default function SearchBook() {
   const router = useRouter();
@@ -14,7 +12,9 @@ export default function SearchBook() {
   const [path, SetPath] = useState('');
   const [placeholderText, SetPlaceholderText] = useState('');
   const [disableInput, SetDisableInput] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
+  const [buttonText, setButtonText] = useState('Filter');
+
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const defaultPlaceholder = 'Klicke den Button an, um entweder mit ISBN oder Titel zu suchen!';
@@ -37,59 +37,52 @@ export default function SearchBook() {
     SetPath(selectedPath);
     SetPlaceholderText(selectedPlaceholder);
     setDropdownOpen(false);
+    setButtonText(selectedPath ? `Suche nach '${selectedPath}'` : 'Filter');
   }
-
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen)
-  };
 
   return (
     <ThemeProvider>
-      <form>
-      {path ? (
-        <div>
-          Suche nach: {path}
-          <button onClick={() => { 
-            onFilterChange('', defaultPlaceholder);
-            SetDisableInput(true);
-          }}>
-            Filter zurücksetzen
-          </button>
-        </div>
-      ) : (
-      <div className="dropdown">
-        <button
-          className={`btn btn-secondary dropdown-toggle ${styles.dropdown}`}
-          type="button"
-          id="dropdownMenuButton"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded={dropdownOpen}
-          onClick={toggleDropdown}
-        >
-          Filter
-        </button>
-        <div 
-        className={`dropdown-menu ${dropdownOpen ? 'show' : ''}`}
-        aria-labelledby="dropdownMenuButton">
+      <form className={`${styles.form}`}>
+        <div className='dropdown'>
           <button 
-          className="btn btn-secondary dropdown-item" type="button"
-          onClick={() => { 
-            onFilterChange('titel', 'Gebe den Titel ein');
-            SetDisableInput(false);
-          }}>
-            Titel
+          className={`btn btn-primary dropdown-toggle ${styles.dropdown}`}
+          type='button'
+          id='dropDownMenuButton'
+          data-bs-toggle='dropdown'
+          aria-expanded='false'
+          >
+            {buttonText}
           </button>
-          <button className="btn btn-secondary dropdown-item" type="button"
-          onClick={() => { 
-            onFilterChange('isbn', 'Gebe die ISBN ein');
-            SetDisableInput(false);
-          }}>
-            ISBN
-          </button>
+          <ul className='dropdown-menu' aria-labelledby='dropDownMenuButton'>
+            <li><a 
+            className='dropdown-item btn btn-secondary' 
+            onClick={() => { 
+              onFilterChange('titel', 'Gebe den Titel ein');
+              SetDisableInput(false);
+            }}>
+              Titel
+            </a></li>
+            <li><a 
+            className='dropdown-item btn btn-secondary' 
+            onClick={() => { 
+              onFilterChange('isbn', 'Gebe die ISBN ein');
+              SetDisableInput(false);
+            }}>
+              ISBN
+            </a></li>
+            <li><hr className='dropdown-divided'></hr></li>
+            <li><a 
+            className='dropdown-item btn btn-primary'
+            onClick={() => {
+              onFilterChange('', defaultPlaceholder);
+              SetDisableInput(true);
+            }}>
+              Zurücksetzen
+            </a></li>
+          </ul>
         </div>
-    </div>)}
         <input 
+        className={`${styles.input}`}
         type="text" 
         placeholder={placeholderText}
         onChange={(e) => SetPathId(e.target.value)}
@@ -98,13 +91,14 @@ export default function SearchBook() {
         disabled={disableInput} />
        <Link href={`/${path}/${pathId}`}> 
         <button 
-        className='btn btn-secondary'
+        className={`btn btn-primary ${styles.button}`}
         type="submit"
         >
           Suchen
           </button>
         </Link>
       </form>
+
     </ ThemeProvider>
   );
 }
