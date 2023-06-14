@@ -1,5 +1,6 @@
 import styles from './page.module.css';
 import Link from 'next/link';
+import Login from './login';
 import { Inter } from 'next/font/google';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -50,6 +51,9 @@ export default function RootLayout({
                   <Link className="nav-link" href="/notes">
                     Notizen
                   </Link>
+                </li>
+                <li className={`nav-item ${styles.navbarItem}`}>
+                <Login />
                 </li>
               </ul>
             </div>
