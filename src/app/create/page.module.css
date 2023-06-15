@@ -1,3 +1,14 @@
-.form-control {
-    width: 20em;
+.inputForm {
+    height: 100%;
+    max-width: 600px;
+    margin-left: 10px;
+}
+
+.groupText {
+    width: 90px;
+}
+
+.submit {
+    margin-top: 20px;
+    margin-left: 10px;
 }

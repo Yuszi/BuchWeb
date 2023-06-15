@@ -1,4 +1,5 @@
 'use client';
+import styles from './page.module.css';
 import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -213,86 +214,61 @@ export default function CreateBook() {
   };
 
   return (
-    <form>
-      <div className="form-group form-group-wide">
-        <label htmlFor="exampleFormControlInput1">ISBN</label>
+    <form style={{marginTop: '20px'}}>
+      <div className={`input-group mb-3 ${styles.inputForm}`}>
+        <span className={`input-group-text ${styles.groupText}`} id='titelAddon'>Titel</span>
         <input
-          type="text"
-          className={`form-control`}
-          id="exampleFormControlInput1"
-          placeholder="978-3442151479"
+          type='text'
+          className='form-control'
+          placeholder='Titel'
+          value={titel}
+          onChange={handleTitelChange}
+          onBlur={handleTitelBlur}
+          aria-describedby='titelAddon'
+        />
+        {titelErrorMessage && <p style={{ color: 'red' }}>{titelErrorMessage}</p>}
+      </div>
+      <div className={`input-group mb-3 ${styles.inputForm}`}>
+        <span className={`input-group-text ${styles.groupText}`} id='untertitelAddon'>Untertitel</span>
+        <input
+          type='text'
+          className='form-control'
+          placeholder='Untertitel'
+          value={untertitel}
+          onChange={handleUntertitelChange}
+          onBlur={handleUntertitelBlur}
+          aria-describedby='untertitelAddon'
+        />
+        {untertitelErrorMessage && <p style={{ color: 'red' }}>{untertitelErrorMessage}</p>}
+      </div>
+      <div className={`input-group mb-3 ${styles.inputForm}`}>
+      <span className={`input-group-text ${styles.groupText}`} id='isbnAddon'>ISBN</span>
+        <input
+          type='text'
+          className='form-control'
+          id='isbn'
+          placeholder='978-3442151479'
           value={isbn}
           onChange={handleIsbnChange}
           onBlur={handleIsbnBlur}
+          style={{width: '150px'}}
+          aria-describedby='isbnAddon'
         />
           {isbnErrorMessage && <p style={{ color: 'red' }}>{isbnErrorMessage}</p>}
       </div>
-      <div className="form-group form-group-wide">
-        <label htmlFor="exampleFormControlSelect2">Rating</label>
+      <div className={`input-group mb-3 ${styles.inputForm}`}>
+        <span className={`input-group-text ${styles.groupText}`} id='artAddon'>Art</span>
         <select
-          className="form-control"
-          id="exampleFormControlSelect2"
-          value={rating}
-          onChange={handleRatingChange}
-        >
-          <option value={1}>1</option>
-          <option value={2}>2</option>
-          <option value={3}>3</option>
-          <option value={4}>4</option>
-          <option value={5}>5</option>
-        </select>
-      </div>
-      <div className="form-group form-group-wide">
-        <label htmlFor="exampleFormControlSelect1">Art</label>
-        <select
-          className="form-control"
-          id="exampleFormControlSelect1"
+          className='form-control'
           value={art}
           onChange={handleArtChange}
+          aria-describedby='artAddon'
         >
           <option>DRUCKAUSGABE</option>
           <option>KINDLE</option>
         </select>
       </div>
-      <div className="form-group form-group-wide">
-        <label htmlFor="exampleFormControlInput1">Preis</label>
-        <input
-          type="text"
-          className="form-control"
-          id="exampleFormControlInput1"
-          placeholder="200"
-          value={preis}
-          onChange={handlePreisChange}
-          onBlur={handlePreisBlur}
-        />
-        {preisErrorMessage && <p style={{ color: 'red' }}>{preisErrorMessage}</p>}
-      </div>
-      <div className="form-group form-group-wide">
-        <label htmlFor="exampleFormControlInput1">Rabatt</label>
-        <input
-          type="text"
-          className="form-control"
-          id="exampleFormControlInput1"
-          placeholder="0.33"
-          value={rabatt}
-          onChange={handleRabattChange}
-          onBlur={handleRabattBlur}
-        />
-        {rabattErrorMessage && <p style={{ color: 'red' }}>{rabattErrorMessage}</p>}
-      </div>
-      <div className="form-group form-group-wide">
-        <label htmlFor="exampleFormControlSelect1">Lieferbar</label>
-        <select
-          className="form-control"
-          id="exampleFormControlSelect1"
-          value={lieferbar}
-          onChange={handleLieferbarChange}
-        >
-          <option>True</option>
-          <option>False</option>
-        </select>
-      </div>
-      <div className="form-group form-group-wide">
+      <div className='input-group mb-3' style={{marginLeft: '60px'}}>
         <div className='form-check form-check-inline'>
           <input className='form-check-input' type='checkbox' id='tsBox' value='TYPESCRIPT' onChange={handleSchlagwörterChange}/>
           <label className='form-check-label' htmlFor='tsBox'>TYPESCRIPT</label> 
@@ -302,45 +278,75 @@ export default function CreateBook() {
           <label className='form-check-label' htmlFor='jsBox'>JAVASCRIPT</label>
         </div>
       </div>
-      <div className="form-group form-group-wide">
-        <label htmlFor="exampleFormControlInput1">Titel</label>
-        <input
-          type="text"
-          className="form-control"
-          id="exampleFormControlInput1"
-          placeholder="Titel"
-          value={titel}
-          onChange={handleTitelChange}
-          onBlur={handleTitelBlur}
-        />
-        {titelErrorMessage && <p style={{ color: 'red' }}>{titelErrorMessage}</p>}
+      <div className={`input-group mb-3 ${styles.inputForm}`}>
+        <span className={`input-group-text ${styles.groupText}`} id='ratingAddon'>Rating</span>
+        <select
+          className='form-control'
+          value={rating}
+          onChange={handleRatingChange}
+          aria-describedby='ratingAddon'
+        >
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
+        </select>
       </div>
-      <div className="form-group form-group-wide">
-        <label htmlFor="exampleFormControlInput1">Untertitel</label>
+      <div className={`input-group mb-3 ${styles.inputForm}`}>
+        <span className={`input-group-text ${styles.groupText}`} id='preisAddon'>Preis</span>
         <input
-          type="text"
-          className="form-control"
-          id="exampleFormControlInput1"
-          placeholder="Untertitel"
-          value={untertitel}
-          onChange={handleUntertitelChange}
-          onBlur={handleUntertitelBlur}
+          type='text'
+          className='form-control'
+          placeholder='200'
+          value={preis}
+          onChange={handlePreisChange}
+          onBlur={handlePreisBlur}
+          aria-describedby='preisAddon'
         />
-        {untertitelErrorMessage && <p style={{ color: 'red' }}>{untertitelErrorMessage}</p>}
+        {preisErrorMessage && <p style={{ color: 'red' }}>{preisErrorMessage}</p>}
       </div>
-      <Calendar
-        value={calendarDate.toISOString()}
-        onChange={handleDateChange}
-        showNeighboringMonth={false}
-        locale={'de-DE'}
-      />
+      <div className={`input-group mb-3 ${styles.inputForm}`}>
+        <span className={`input-group-text ${styles.groupText}`} id='rabattAddon'>Rabatt</span>
+        <input
+          type='text'
+          className='form-control'
+          placeholder='0.33'
+          value={rabatt}
+          onChange={handleRabattChange}
+          onBlur={handleRabattBlur}
+          aria-describedby='rabattAddon'
+        />
+        {rabattErrorMessage && <p style={{ color: 'red' }}>{rabattErrorMessage}</p>}
+      </div>
+      <div className={`input-group mb-3 ${styles.inputForm}`}>
+        <span className={`input-group-text ${styles.groupText}`} id='lieferbarAddon'>Lieferbar</span>
+        <select
+          className='form-control'
+          value={lieferbar}
+          onChange={handleLieferbarChange}
+          aria-describedby='lieferbarAddon'
+        >
+          <option>True</option>
+          <option>False</option>
+        </select>
+      </div>
+      <div style={{marginLeft: '10px'}}>
+        <Calendar
+          value={calendarDate.toISOString()}
+          onChange={handleDateChange}
+          showNeighboringMonth={false}
+          locale={'de-DE'}
+          
+        />
+      </div>
       <button
-        type="button"
-        className="btn btn-secondary btn-lg btn-block"
+        type='button'
+        className={`btn btn-secondary btn-lg btn-block ${styles.submit}`}
         onClick={handleSubmit}
         disabled={isInvalid}
       >
-        Buch anlegen
+        Anlegen
       </button>
     </form>
   );
