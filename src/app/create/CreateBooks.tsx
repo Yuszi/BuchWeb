@@ -13,7 +13,7 @@ export default function CreateBook() {
   const [preis, setPreis] = useState('0');
   const [rabatt, setRabatt] = useState('');
   const [lieferbar, setLieferbar] = useState('true');
-  const [schlagwörter, setSchlagwörter] = useState('JAVASCRIPT');
+  const [schlagwörter, setSchlagwörter] = useState<string[]>([]);
   const [calendarDate, setCalendarDate] = useState(new Date());
 
   const [titel, setTitel] = useState('');
@@ -47,7 +47,14 @@ export default function CreateBook() {
     setLieferbar(e.target.value);
   };
   const handleSchlagwörterChange = (e: any) => {
-    setSchlagwörter(e.target.value);
+    const { value, checked } = e.target;
+    
+    if (checked) {
+      setSchlagwörter((prev) => [...prev, value]);
+    } else {
+      setSchlagwörter((prev) => prev.filter((v) => v !== value));
+    }
+    //setSchlagwörter(e.target.value);
   };
   const handleTitelChange = (e: any) => {
     setTitel(e.target.value);
@@ -73,6 +80,7 @@ export default function CreateBook() {
       setIsInvalid(true);
     }
   };
+  //TODO support for decimal numbers
   const handlePreisBlur = async (event: any) => {
     const schema = yup.string().matches(/^(?:[0-4]?[0-9]{1,3}|5000)$/, 'Ungültiger Preis').required('Preis ist erforderlich');
     const { value } = event.target;
@@ -157,7 +165,7 @@ export default function CreateBook() {
       lieferbar: Boolean(lieferbar.toLowerCase()),
       datum: formatDate(calendarDate),
       homepage: 'https://post.rest',
-      schlagwoerter: schlagwörter.split(',').map((keyword) => keyword.trim()),
+      schlagwoerter: schlagwörter,
       titel: {
         titel: titel,
         untertitel: untertitel,
@@ -285,16 +293,14 @@ export default function CreateBook() {
         </select>
       </div>
       <div className="form-group form-group-wide">
-        <label htmlFor="exampleFormControlSelect1">Schlagwörter</label>
-        <select
-          className="form-control"
-          id="exampleFormControlSelect1"
-          value={schlagwörter}
-          onChange={handleSchlagwörterChange}
-        >
-          <option>JAVASCRIPT</option>
-          <option>TYPESCRIPT</option>
-        </select>
+        <div className='form-check form-check-inline'>
+          <input className='form-check-input' type='checkbox' id='tsBox' value='TYPESCRIPT' onChange={handleSchlagwörterChange}/>
+          <label className='form-check-label' htmlFor='tsBox'>TYPESCRIPT</label> 
+        </div>
+        <div className='form-check form-check-inline'>
+          <input className='form-check-input' type='checkbox' id='jsBox' value='JAVASCRIPT' onChange={handleSchlagwörterChange}/>
+          <label className='form-check-label' htmlFor='jsBox'>JAVASCRIPT</label>
+        </div>
       </div>
       <div className="form-group form-group-wide">
         <label htmlFor="exampleFormControlInput1">Titel</label>
