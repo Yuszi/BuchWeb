@@ -5,12 +5,17 @@ import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
+import * as yup from 'yup';
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+  // For Validation 
+  const [isInvalid, setIsInvalid] = useState(false);
+  const [usernameErrorMessage, setUsernameErrorMessage] = useState('');
 
   const handleUsernameChange = (e: any) => {
     setUsername(e.target.value);
@@ -64,10 +69,30 @@ export default function Login() {
     }
   }
 
+  const handleUsernameBlur = async (event: any) => {
+    const schema = yup.string().matches(/^[a-zA-Z0-9]+$/, 'Ungültiger Titel').required('Titel ist erforderlich');
+    const { value } = event.target;
+  
+    try {
+      await schema.validate(value);
+      // Validation passed
+      setUsernameErrorMessage('');
+      setIsInvalid(false);
+    } catch (error) {
+      // Validation failed
+      setUsernameErrorMessage('Invalid input');
+      setIsInvalid(true);
+    }
+  };
+
+  const handleLoggingOut = () => {
+    setIsLoggedIn(false);
+    deleteCookie('token');
+  }
   return (
     <>
     {isLoggedIn ? (
-      <span onClick={() => setIsLoggedIn(false)}  style={{ cursor: 'pointer' }}><li>Log out</li></span>
+      <span onClick={handleLoggingOut}  style={{ cursor: 'pointer' }}><li>Log out</li></span>
     ) : (
       <div>
         <FontAwesomeIcon
@@ -99,7 +124,9 @@ export default function Login() {
                   value={username}
                   onChange={handleUsernameChange}
                   onKeyDown={handleLoginPress}
+                  onBlur={handleUsernameBlur}
                 />
+                {usernameErrorMessage && <p style={{ color: 'red' }}>{usernameErrorMessage}</p>}
                 <input
                   className="form-control"
                   style={{ margin: '5px 0'}}
@@ -112,7 +139,7 @@ export default function Login() {
               </form>
             </div>
             <div className="modal-footer">
-              <button className="btn btn-primary" type="button" onClick={handleLogin}>
+              <button className="btn btn-primary" type="button" onClick={handleLogin} disabled={isInvalid}>
                 Login
               </button>
             </div>

@@ -1,11 +1,10 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import styles from '../page.module.css';
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
-import { cookies } from 'next/dist/client/components/headers';
+import * as yup from 'yup';
 
 export default function CreateBook() {
   const [isbn, setIsbn] = useState('');
@@ -19,6 +18,14 @@ export default function CreateBook() {
 
   const [titel, setTitel] = useState('');
   const [untertitel, setUntertitel] = useState('');
+
+  // Hooks for validation 
+  const [isbnErrorMessage, setIsbnErrorMessage] = useState('');
+  const [preisErrorMessage, setPreisErrorMessage] = useState('');
+  const [rabattErrorMessage, setRabattErrorMessage] = useState('');
+  const [titelErrorMessage, setTitelErrorMessage] = useState('');
+  const [untertitelErrorMessage, setUntertitelErrorMessage] = useState('');
+  const [isInvalid, setIsInvalid] = useState(false);
 
 
   const handleIsbnChange = (e: any) => {
@@ -48,6 +55,85 @@ export default function CreateBook() {
   const handleUntertitelChange = (e: any) => {
     setUntertitel(e.target.value);
   };
+
+  
+  // Validation of the input fields
+  const handleIsbnBlur = async (event: any) => {
+    const schema = yup.string().matches(/^[0-9]{3}-[0-9]{10}$/, 'Ungültige ISBN-13').required('ISBN-13 ist erforderlich')
+    const { value } = event.target;
+  
+    try {
+      await schema.validate(value);
+      // Validation passed
+      setIsbnErrorMessage('');
+      setIsInvalid(false);
+    } catch (error) {
+      // Validation failed
+      setIsbnErrorMessage('Invalid input');
+      setIsInvalid(true);
+    }
+  };
+  const handlePreisBlur = async (event: any) => {
+    const schema = yup.string().matches(/^(?:[0-4]?[0-9]{1,3}|5000)$/, 'Ungültiger Preis').required('Preis ist erforderlich');
+    const { value } = event.target;
+  
+    try {
+      await schema.validate(value);
+      // Validation passed
+      setPreisErrorMessage('');
+      setIsInvalid(false);
+    } catch (error) {
+      // Validation failed
+      setPreisErrorMessage('Invalid input');
+      setIsInvalid(true);
+    }
+  };
+  const handleRabattBlur = async (event: any) => {
+    const schema = yup.string().matches(/^(0(?:\.\d+)?|1(?:\.0)?)$/, 'Ungültiger Rabatt').required('Rabatt ist erforderlich');
+    const { value } = event.target;
+  
+    try {
+      await schema.validate(value);
+      // Validation passed
+      setRabattErrorMessage('');
+      setIsInvalid(false);
+    } catch (error) {
+      // Validation failed
+      setRabattErrorMessage('Invalid input');
+      setIsInvalid(true);
+    }
+  };  
+  const handleTitelBlur = async (event: any) => {
+    const schema = yup.string().matches(/^[a-zA-Z0-9]+$/, 'Ungültiger Titel').required('Titel ist erforderlich');
+    const { value } = event.target;
+  
+    try {
+      await schema.validate(value);
+      // Validation passed
+      setTitelErrorMessage('');
+      setIsInvalid(false);
+    } catch (error) {
+      // Validation failed
+      setTitelErrorMessage('Invalid input');
+      setIsInvalid(true);
+    }
+  };
+  const handleUntertitelBlur = async (event: any) => {
+    const schema = yup.string().matches(/^[a-zA-Z0-9\s]+$/, 'Ungültiger Untertitel').required('Untertitel ist erforderlich');
+    const { value } = event.target;
+  
+    try {
+      await schema.validate(value);
+      // Validation passed
+      setUntertitelErrorMessage('');
+      setIsInvalid(false);
+    } catch (error) {
+      // Validation failed
+      setUntertitelErrorMessage('Invalid input');
+      setIsInvalid(true);
+    }
+  };
+
 
   const formatDate = (date: any) => {
     const year = date.getFullYear();
@@ -126,10 +212,12 @@ export default function CreateBook() {
           type="text"
           className={`form-control`}
           id="exampleFormControlInput1"
-          placeholder="978-0-201-63361-0"
+          placeholder="978-3442151479"
           value={isbn}
           onChange={handleIsbnChange}
+          onBlur={handleIsbnBlur}
         />
+          {isbnErrorMessage && <p style={{ color: 'red' }}>{isbnErrorMessage}</p>}
       </div>
       <div className="form-group form-group-wide">
         <label htmlFor="exampleFormControlSelect2">Rating</label>
@@ -167,7 +255,9 @@ export default function CreateBook() {
           placeholder="200"
           value={preis}
           onChange={handlePreisChange}
+          onBlur={handlePreisBlur}
         />
+        {preisErrorMessage && <p style={{ color: 'red' }}>{preisErrorMessage}</p>}
       </div>
       <div className="form-group form-group-wide">
         <label htmlFor="exampleFormControlInput1">Rabatt</label>
@@ -178,7 +268,9 @@ export default function CreateBook() {
           placeholder="0.33"
           value={rabatt}
           onChange={handleRabattChange}
+          onBlur={handleRabattBlur}
         />
+        {rabattErrorMessage && <p style={{ color: 'red' }}>{rabattErrorMessage}</p>}
       </div>
       <div className="form-group form-group-wide">
         <label htmlFor="exampleFormControlSelect1">Lieferbar</label>
@@ -213,7 +305,9 @@ export default function CreateBook() {
           placeholder="Titel"
           value={titel}
           onChange={handleTitelChange}
+          onBlur={handleTitelBlur}
         />
+        {titelErrorMessage && <p style={{ color: 'red' }}>{titelErrorMessage}</p>}
       </div>
       <div className="form-group form-group-wide">
         <label htmlFor="exampleFormControlInput1">Untertitel</label>
@@ -224,7 +318,9 @@ export default function CreateBook() {
           placeholder="Untertitel"
           value={untertitel}
           onChange={handleUntertitelChange}
+          onBlur={handleUntertitelBlur}
         />
+        {untertitelErrorMessage && <p style={{ color: 'red' }}>{untertitelErrorMessage}</p>}
       </div>
       <Calendar
         value={calendarDate.toISOString()}
@@ -236,6 +332,7 @@ export default function CreateBook() {
         type="button"
         className="btn btn-secondary btn-lg btn-block"
         onClick={handleSubmit}
+        disabled={isInvalid}
       >
         Buch anlegen
       </button>
