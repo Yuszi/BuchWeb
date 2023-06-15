@@ -50,23 +50,35 @@ export default function Login() {
         console.log('Login successful');
 
         setIsLoggedIn(true);
+        setShowModal(false);
       })
       .catch((error) => {
         console.log('Login failed:', error);
-      });
+      }
+      );
   };
+
+  const handleLoginPress = (e: any) => {
+    if (e.key === 'Enter'){
+      handleLogin();
+    }
+  }
 
   return (
     <>
-    <div>
-      <FontAwesomeIcon
-        className="modal-toggle"
-        icon={faUser}
-        onClick={handleModalToggle}
-        size="2x"
-        style={{cursor: 'pointer'}}
-      />
-    </div>
+    {isLoggedIn ? (
+      <span onClick={() => setIsLoggedIn(false)}  style={{ cursor: 'pointer' }}><li>Log out</li></span>
+    ) : (
+      <div>
+        <FontAwesomeIcon
+          className="modal-toggle"
+          icon={faUser}
+          onClick={handleModalToggle}
+          size="2x"
+          style={{ cursor: 'pointer' }}
+        />
+      </div>
+    )}
     {showModal && (
       <div className="modal show" tabIndex={-1} role="dialog" style={{ display: 'block', }}>
         <div className="modal-dialog modal-sm" role="document">
@@ -86,6 +98,7 @@ export default function Login() {
                   placeholder="Username"
                   value={username}
                   onChange={handleUsernameChange}
+                  onKeyDown={handleLoginPress}
                 />
                 <input
                   className="form-control"
@@ -94,6 +107,7 @@ export default function Login() {
                   placeholder="Password"
                   value={password}
                   onChange={handlePasswordChange}
+                  onKeyDown={handleLoginPress}
                 />
               </form>
             </div>
