@@ -10,6 +10,7 @@ export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleUsernameChange = (e: any) => {
     setUsername(e.target.value);
@@ -17,6 +18,7 @@ export default function Login() {
   const handlePasswordChange = (e: any) => {
     setPassword(e.target.value);
   };
+  const handleModalToggle = () => setShowModal(!showModal);
 
   useEffect(() => {
     deleteCookie('token');
@@ -56,49 +58,54 @@ export default function Login() {
 
   return (
     <>
-      {isLoggedIn ? (
-        <div>Logged in as {username}</div>
-      ) : (
-        <>
-          <FontAwesomeIcon
-            className="dropdown-toggle"
-            icon={faUser}
-            id="dropdownMenuButton1"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            size="2x"
-          />
-          <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li>
-              <input
-                className="dropdown-item"
-                type="text"
-                placeholder="Username"
-                value={username}
-                onChange={handleUsernameChange}
-              />
-            </li>
-            <li>
-              <input
-                className="dropdown-item"
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={handlePasswordChange}
-              />
-            </li>
-            <li>
-              <button
-                className="dropdown-item"
-                type="button"
-                onClick={handleLogin}
-              >
+    <div>
+      <FontAwesomeIcon
+        className="modal-toggle"
+        icon={faUser}
+        onClick={handleModalToggle}
+        size="2x"
+        style={{cursor: 'pointer'}}
+      />
+    </div>
+    {showModal && (
+      <div className="modal show" tabIndex={-1} role="dialog" style={{ display: 'block', }}>
+        <div className="modal-dialog modal-sm" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Login</h5>
+              <button type="button" className="fa fa-window-close" onClick={handleModalToggle}>
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <form className='centered-form' style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <input
+                  className="form-control"
+                  style={{ margin: '5px 0'}}
+                  type="text"
+                  placeholder="Username"
+                  value={username}
+                  onChange={handleUsernameChange}
+                />
+                <input
+                  className="form-control"
+                  style={{ margin: '5px 0'}}
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={handlePasswordChange}
+                />
+              </form>
+            </div>
+            <div className="modal-footer">
+              <button className="btn btn-primary" type="button" onClick={handleLogin}>
                 Login
               </button>
-            </li>
-          </ul>
-        </>
-      )}
-    </>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+  </>
   );
 }
