@@ -81,11 +81,10 @@ export default function CreateBook() {
       setIsInvalid(true);
     }
   };
-  //TODO support for decimal numbers
   const handlePreisBlur = async (event: any) => {
-    const schema = yup.string().matches(/^(?:[0-4]?[0-9]{1,3}|5000)$/, 'Ungültiger Preis').required('Preis ist erforderlich');
+    const schema = yup.string().matches(/^\s*?\d+([.,]\d{1,2})?\s*$/, 'Ungültiger Preis').required('Preis ist erforderlich');
     const { value } = event.target;
-  
+
     try {
       await schema.validate(value);
       // Validation passed
@@ -161,7 +160,7 @@ export default function CreateBook() {
       isbn: isbn,
       rating: rating,
       art: art,
-      preis: Number(parseFloat(preis).toFixed(2)),
+      preis: Number(parseFloat(preis.replace(',', '.')).toFixed(2)),
       rabatt: parseFloat(rabatt),
       lieferbar: Boolean(lieferbar.toLowerCase()),
       datum: formatDate(calendarDate),
