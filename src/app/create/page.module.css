@@ -1,7 +1,12 @@
 .inputForm {
-    height: 100%;
+    height: 50px;
     max-width: 600px;
     margin-left: 10px;
+}
+
+.errorMessage {
+    height: 20px;
+    margin-left: 60px;
 }
 
 .groupText {

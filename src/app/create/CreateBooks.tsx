@@ -225,7 +225,9 @@ export default function CreateBook() {
           onBlur={handleTitelBlur}
           aria-describedby='titelAddon'
         />
-        {titelErrorMessage && <p style={{ color: 'red' }}>{titelErrorMessage}</p>}
+        <div className={`input-group ${styles.errorMessage}`}>
+          {titelErrorMessage && <p style={{ color: 'red' }}>{titelErrorMessage}</p>}
+        </div>
       </div>
       <div className={`input-group mb-3 ${styles.inputForm}`}>
         <span className={`input-group-text ${styles.groupText}`} id='untertitelAddon'>Untertitel</span>
@@ -238,7 +240,9 @@ export default function CreateBook() {
           onBlur={handleUntertitelBlur}
           aria-describedby='untertitelAddon'
         />
-        {untertitelErrorMessage && <p style={{ color: 'red' }}>{untertitelErrorMessage}</p>}
+        <div className={`input-group ${styles.errorMessage}`}>
+          {untertitelErrorMessage && <p style={{ color: 'red' }}>{untertitelErrorMessage}</p>}
+        </div>
       </div>
       <div className={`input-group mb-3 ${styles.inputForm}`}>
       <span className={`input-group-text ${styles.groupText}`} id='isbnAddon'>ISBN</span>
@@ -253,7 +257,9 @@ export default function CreateBook() {
           style={{width: '150px'}}
           aria-describedby='isbnAddon'
         />
-          {isbnErrorMessage && <p style={{ color: 'red' }}>{isbnErrorMessage}</p>}
+          <div className={`input-group ${styles.errorMessage}`}>
+            {isbnErrorMessage && <p style={{ color: 'red' }}>{isbnErrorMessage}</p>}
+          </div>
       </div>
       <div className={`input-group mb-3 ${styles.inputForm}`}>
         <span className={`input-group-text ${styles.groupText}`} id='artAddon'>Art</span>
@@ -303,7 +309,9 @@ export default function CreateBook() {
           onBlur={handlePreisBlur}
           aria-describedby='preisAddon'
         />
-        {preisErrorMessage && <p style={{ color: 'red' }}>{preisErrorMessage}</p>}
+        <div className={`input-group ${styles.errorMessage}`}>
+          {preisErrorMessage && <p style={{ color: 'red' }}>{preisErrorMessage}</p>}
+        </div>
       </div>
       <div className={`input-group mb-3 ${styles.inputForm}`}>
         <span className={`input-group-text ${styles.groupText}`} id='rabattAddon'>Rabatt</span>
@@ -316,7 +324,9 @@ export default function CreateBook() {
           onBlur={handleRabattBlur}
           aria-describedby='rabattAddon'
         />
-        {rabattErrorMessage && <p style={{ color: 'red' }}>{rabattErrorMessage}</p>}
+        <div className={`input-group ${styles.errorMessage}`}>
+          {rabattErrorMessage && <p style={{ color: 'red' }}>{rabattErrorMessage}</p>}
+        </div>
       </div>
       <div className={`input-group mb-3 ${styles.inputForm}`}>
         <span className={`input-group-text ${styles.groupText}`} id='lieferbarAddon'>Lieferbar</span>
