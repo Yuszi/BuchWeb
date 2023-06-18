@@ -17,7 +17,7 @@ interface Book {
 }
 
 const GetAllBooks = () => {
-  const [dictOfBooks, SetDictOfBooks] = useState<Book[]>([]);
+  const [dictOfBooks, setDictOfBooks] = useState<Book[]>([]);
 
   const isbn = useParams();
 
@@ -38,7 +38,7 @@ const GetAllBooks = () => {
           return book;
         },
       );
-      SetDictOfBooks(bookList);
+      setDictOfBooks(bookList);
       console.log(bookList);
       console.log(res);
       return res;

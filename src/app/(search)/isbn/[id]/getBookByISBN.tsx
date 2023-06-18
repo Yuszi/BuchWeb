@@ -6,11 +6,11 @@ import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 
 const GetBookByISBN = () => {
-  const [titel, SetTitel] = useState('');
-  const [preis, SetPreis] = useState('');
-  const [homepage, SetHomepage] = useState('');
-  const [datum, SetDatum] = useState('');
-  const [rabatt, SetRabatt] = useState('');
+  const [titel, setTitel] = useState('');
+  const [preis, setPreis] = useState('');
+  const [homepage, setHomepage] = useState('');
+  const [datum, setDatum] = useState('');
+  const [rabatt, setRabatt] = useState('');
 
   const isbn = useParams();
 
@@ -19,13 +19,13 @@ const GetBookByISBN = () => {
       // wichtigen Teil des Responses filtern
       const data = res['data']['_embedded']['buecher']['0'];
 
-      SetTitel(data.titel.titel);
-      SetPreis(data.preis);
-      SetHomepage(data.homepage);
-      SetDatum(data.datum);
+      setTitel(data.titel.titel);
+      setPreis(data.preis);
+      setHomepage(data.homepage);
+      setDatum(data.datum);
 
       const rabattBerechnung = (data.rabatt * 100).toFixed(1);
-      SetRabatt(rabattBerechnung + '%');
+      setRabatt(rabattBerechnung + '%');
       console.log(data);
       console.log(data.isbn);
 

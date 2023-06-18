@@ -1,16 +1,16 @@
 'use client';
 
 import axios from 'axios';
-import { notFound, useParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 
 const GetBookByTitel = () => {
-  const [isbn, SetIsbn] = useState('?');
-  const [preis, SetPreis] = useState('?');
-  const [homepage, SetHomepage] = useState('?');
-  const [datum, SetDatum] = useState('?');
-  const [rabatt, SetRabatt] = useState('?');
+  const [isbn, setIsbn] = useState('?');
+  const [preis, setPreis] = useState('?');
+  const [homepage, setHomepage] = useState('?');
+  const [datum, setDatum] = useState('?');
+  const [rabatt, setRabatt] = useState('?');
 
   const titel = useParams();
 
@@ -20,13 +20,13 @@ const GetBookByTitel = () => {
         // wichtigen Teil des Responses filtern
         const data = res['data']['_embedded']['buecher']['0'];
 
-        SetIsbn(data.isbn);
-        SetPreis(data.preis);
-        SetHomepage(data.homepage);
-        SetDatum(data.datum);
+        setIsbn(data.isbn);
+        setPreis(data.preis);
+        setHomepage(data.homepage);
+        setDatum(data.datum);
 
         const rabattBerechnung = (data.rabatt * 100).toFixed(1);
-        SetRabatt(rabattBerechnung + '%');
+        setRabatt(rabattBerechnung + '%');
         console.log(data);
         console.log(data.isbn);
 
