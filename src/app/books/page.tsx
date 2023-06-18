@@ -1,12 +1,6 @@
-'use client';
-import axios from 'axios';
-import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
-import styles from './page.module.css';
 import GetAllBooks from './GetAllBooks';
-
 
 const ListBookWithTitel = () => {
   return (
