@@ -7,7 +7,7 @@ import Head from 'next/head';
 import Script from 'next/script';
 import styles from './page.module.css';
 
-export default function ListBookWithIsbn() {
+export default function ListBookWithTitel() {
   const [isbn, SetIsbn] = useState('?');
   const [preis, SetPreis] = useState('?');
   const [homepage, SetHomepage] = useState('?');
