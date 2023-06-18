@@ -1,43 +1,8 @@
-'use client';
-import axios from 'axios';
-import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
-import styles from './page.module.css';
+import GetBookByTitel from './GetBookByISBN';
 
-export default function ListBookWithTitel() {
-  const [isbn, SetIsbn] = useState('?');
-  const [preis, SetPreis] = useState('?');
-  const [homepage, SetHomepage] = useState('?');
-  const [datum, SetDatum] = useState('?');
-  const [rabatt, SetRabatt] = useState('?');
-
-  const titel = useParams();
-
-  const getBookWithTitel = (titel: any) => {
-    axios.get(`https://localhost:3000/rest/?titel=${titel}`).then((res) => {
-      // wichtigen Teil des Responses filtern
-      const data = res['data']['_embedded']['buecher']['0'];
-
-      SetIsbn(data.isbn);
-      SetPreis(data.preis);
-      SetHomepage(data.homepage);
-      SetDatum(data.datum);
-
-      const rabattBerechnung = (data.rabatt * 100).toFixed(1);
-      SetRabatt(rabattBerechnung + '%');
-      console.log(data);
-      console.log(data.isbn);
-
-      return data;
-    });
-  };
-  useEffect(() => {
-    console.log(titel.id);
-    getBookWithTitel(titel.id);
-  }, [titel.id]);
+const ListBookWithTitel = () => {
   return (
     <>
       <Head>
@@ -55,29 +20,9 @@ export default function ListBookWithTitel() {
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossOrigin="anonymous"
       />
-      <h1>{titel.id}</h1>
-      <table>
-        <thead>
-          <tr className={styles.tr}>
-            <th>ISBN</th>
-            <th>Preis</th>
-            <th>Homepage</th>
-            <th>Datum</th>
-            <th>Rabatt</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{isbn}</td>
-            <td>{preis}</td>
-            <td>
-              <a href={homepage}>{homepage}</a>
-            </td>
-            <td>{datum}</td>
-            <td>{rabatt}</td>
-          </tr>
-        </tbody>
-      </table>
+      <GetBookByTitel />
     </>
   );
 }
+
+export default ListBookWithTitel;
