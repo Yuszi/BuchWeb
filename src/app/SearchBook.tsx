@@ -6,7 +6,7 @@ import styles from './page.module.css';
 import { useRouter } from 'next/navigation';
 import { ThemeProvider } from 'next-themes';
 
-export default function SearchBook() {
+const SearchBook = () => {
   const router = useRouter();
   const [pathId, SetPathId] = useState('');
   const [path, SetPath] = useState('');
@@ -101,3 +101,5 @@ export default function SearchBook() {
     </ ThemeProvider>
   );
 }
+
+export default SearchBook;

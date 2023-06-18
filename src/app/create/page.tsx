@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import Script from 'next/script';
-import CreateBook from './CreateBooks';
+import CreateBook from './createBook';
 
-export default function CreateABook() {
+const CreateNewBook = () => {
   return (
     <>
       <Head>
@@ -24,3 +24,5 @@ export default function CreateABook() {
     </>
   );
 }
+
+export default CreateNewBook
