@@ -5,7 +5,6 @@ import GetBookByISBN from './GetBookByISBN';
 export default function ListBookWithIsbn() {
   return (
     <>
-      {' '}
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link
