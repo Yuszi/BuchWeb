@@ -112,7 +112,7 @@ export default function CreateBook() {
     }
   };  
   const handleTitelBlur = async (event: any) => {
-    const schema = yup.string().required('Titel ist erforderlich').matches(/^[a-zA-Z0-9]+$/, 'Ungültiger Titel');
+    const schema = yup.string().required('Titel ist erforderlich').matches(/^[a-zA-Z0-9\s]+$/, 'Ungültiger Titel');
     const { value } = event.target;
   
     try {
