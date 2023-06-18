@@ -67,7 +67,7 @@ export default function CreateBook() {
   
   // Validation of the input fields
   const handleIsbnBlur = async (event: any) => {
-    const schema = yup.string().matches(/^[0-9]{3}-[0-9]{10}$/, 'Ungültige ISBN-13').required('ISBN-13 ist erforderlich')
+    const schema = yup.string().required('ISBN-13 ist erforderlich').matches(/^[0-9]{3}-[0-9]{10}$/, 'Ungültige ISBN-13');
     const { value } = event.target;
   
     try {
@@ -75,14 +75,14 @@ export default function CreateBook() {
       // Validation passed
       setIsbnErrorMessage('');
       setIsInvalid(false);
-    } catch (error) {
+    } catch (error: any) {
       // Validation failed
-      setIsbnErrorMessage('Invalid input');
+      setIsbnErrorMessage(error.message);
       setIsInvalid(true);
     }
   };
   const handlePreisBlur = async (event: any) => {
-    const schema = yup.string().matches(/^\s*?\d+([.,]\d{1,2})?\s*$/, 'Ungültiger Preis').required('Preis ist erforderlich');
+    const schema = yup.string().required('Preis ist erforderlich').matches(/^\s*?\d+([.,]\d{1,2})?\s*$/, 'Ungültiger Preis');
     const { value } = event.target;
 
     try {
@@ -90,14 +90,14 @@ export default function CreateBook() {
       // Validation passed
       setPreisErrorMessage('');
       setIsInvalid(false);
-    } catch (error) {
+    } catch (error: any) {
       // Validation failed
-      setPreisErrorMessage('Invalid input');
+      setPreisErrorMessage(error.message);
       setIsInvalid(true);
     }
   };
   const handleRabattBlur = async (event: any) => {
-    const schema = yup.string().matches(/^(0(?:\.\d+)?|1(?:\.0)?)$/, 'Ungültiger Rabatt').required('Rabatt ist erforderlich');
+    const schema = yup.string().required('Rabatt ist erforderlich').matches(/^(0(?:\.\d+)?|1(?:\.0)?)$/, 'Ungültiger Rabatt');
     const { value } = event.target;
   
     try {
@@ -105,14 +105,14 @@ export default function CreateBook() {
       // Validation passed
       setRabattErrorMessage('');
       setIsInvalid(false);
-    } catch (error) {
+    } catch (error: any) {
       // Validation failed
-      setRabattErrorMessage('Invalid input');
+      setRabattErrorMessage(error.message);
       setIsInvalid(true);
     }
   };  
   const handleTitelBlur = async (event: any) => {
-    const schema = yup.string().matches(/^[a-zA-Z0-9]+$/, 'Ungültiger Titel').required('Titel ist erforderlich');
+    const schema = yup.string().required('Titel ist erforderlich').matches(/^[a-zA-Z0-9]+$/, 'Ungültiger Titel');
     const { value } = event.target;
   
     try {
@@ -120,14 +120,14 @@ export default function CreateBook() {
       // Validation passed
       setTitelErrorMessage('');
       setIsInvalid(false);
-    } catch (error) {
+    } catch (error: any) {
       // Validation failed
-      setTitelErrorMessage('Invalid input');
+      setTitelErrorMessage(error.message);
       setIsInvalid(true);
     }
   };
   const handleUntertitelBlur = async (event: any) => {
-    const schema = yup.string().matches(/^[a-zA-Z0-9\s]+$/, 'Ungültiger Untertitel').required('Untertitel ist erforderlich');
+    const schema = yup.string().required('Untertitel ist erforderlich').matches(/^[a-zA-Z0-9\s]+$/, 'Ungültiger Untertitel');
     const { value } = event.target;
   
     try {
@@ -135,9 +135,9 @@ export default function CreateBook() {
       // Validation passed
       setUntertitelErrorMessage('');
       setIsInvalid(false);
-    } catch (error) {
+    } catch (error: any) {
       // Validation failed
-      setUntertitelErrorMessage('Invalid input');
+      setUntertitelErrorMessage(error.message);
       setIsInvalid(true);
     }
   };
