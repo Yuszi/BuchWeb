@@ -9,9 +9,9 @@ import * as yup from 'yup';
 
 export default function CreateBook() {
   const [isbn, setIsbn] = useState('');
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(1);
   const [art, setArt] = useState('DRUCKAUSGABE');
-  const [preis, setPreis] = useState('0');
+  const [preis, setPreis] = useState('');
   const [rabatt, setRabatt] = useState('');
   const [lieferbar, setLieferbar] = useState('true');
   const [schlagwörter, setSchlagwörter] = useState<string[]>([]);
@@ -26,7 +26,7 @@ export default function CreateBook() {
   const [rabattErrorMessage, setRabattErrorMessage] = useState('');
   const [titelErrorMessage, setTitelErrorMessage] = useState('');
   const [untertitelErrorMessage, setUntertitelErrorMessage] = useState('');
-  const [isInvalid, setIsInvalid] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(true);
 
 
   const handleIsbnChange = (e: any) => {
