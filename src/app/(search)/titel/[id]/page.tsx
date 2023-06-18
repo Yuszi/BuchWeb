@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Script from 'next/script';
-import GetBookByTitel from './GetBookByISBN';
+import GetBookByTitel from './getBookByTitel';
 
 const ListBookWithTitel = () => {
   return (
