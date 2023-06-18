@@ -1,4 +1,4 @@
-export default function Loading() {
+const Loading = () => {
   return (
     <>
       <style jsx>{`
@@ -25,3 +25,5 @@ export default function Loading() {
     </>
   );
 }
+
+export default Loading;

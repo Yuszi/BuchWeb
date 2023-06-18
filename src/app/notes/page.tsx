@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Image from 'next/image';
 
 
-export default function Notes() {
+const Notes = () => {
   return (
     <>
       <Head>
@@ -45,3 +45,4 @@ export default function Notes() {
   );
 }
 
+export default Notes;

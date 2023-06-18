@@ -6,7 +6,7 @@ import './page.module.css';
 import { ThemeProvider } from 'next-themes';
 import ThemeSwitch from './darkMode';
 
-export default function Page(...args: []) {
+const Page = (...args: []) =>  {
   return (
     <>
       <Head>
@@ -23,3 +23,5 @@ export default function Page(...args: []) {
     </>
   );
 }
+
+export default Page;

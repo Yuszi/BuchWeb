@@ -11,11 +11,11 @@ export const metadata = {
   description: 'Search and create a book',
 };
 
-export default function RootLayout({
+const RootLayout = ({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}) => {
   return (
     <html>
       <body>
@@ -64,3 +64,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+export default RootLayout;

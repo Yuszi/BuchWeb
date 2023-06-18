@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import * as yup from 'yup';
 
-export default function Login() {
+const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -150,3 +150,5 @@ export default function Login() {
   </>
   );
 }
+
+export default Login;
