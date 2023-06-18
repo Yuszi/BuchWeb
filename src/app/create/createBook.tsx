@@ -6,6 +6,7 @@ import 'react-calendar/dist/Calendar.css';
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
 import * as yup from 'yup';
+import InternalErrorPage from '../(search)/errorInternal';
 
 export default function CreateBook() {
   const [isbn, setIsbn] = useState('');
@@ -27,6 +28,8 @@ export default function CreateBook() {
   const [titelErrorMessage, setTitelErrorMessage] = useState('');
   const [untertitelErrorMessage, setUntertitelErrorMessage] = useState('');
   const [isInvalid, setIsInvalid] = useState(true);
+
+  const [isInternalError, setIsInternalError] = useState(false);
 
 
   const handleIsbnChange = (e: any) => {
@@ -197,7 +200,6 @@ export default function CreateBook() {
         confirm(`Succesfully added ${titel}`);
       })
       .catch((error) => {
-        // Handle the error
 
         // TODO: switch, statt else if!
         if (error == 'AxiosError: Request failed with status code 403') {
@@ -205,158 +207,162 @@ export default function CreateBook() {
         } else if (error == 'AxiosError: Request failed with status code 400') {
           alert('Keine richtige ISBN angegeben');
         } else if (error == 'AxiosError: Network Error') {
-          alert('Backend Server ist nicht gestartet!');
+          setIsInternalError(true);
         } else {
           alert(error);
         }
       });
   };
 
-  return (
-    <form style={{marginTop: '20px'}}>
-      <div className={`input-group mb-3 ${styles.inputForm}`}>
-        <span className={`input-group-text ${styles.groupText}`} id='titelAddon'>Titel</span>
-        <input
-          type='text'
-          className='form-control'
-          placeholder='Titel'
-          value={titel}
-          onChange={handleTitelChange}
-          onBlur={handleTitelBlur}
-          aria-describedby='titelAddon'
-        />
-        <div className={`input-group ${styles.errorMessage}`}>
-          {titelErrorMessage && <p style={{ color: 'red' }}>{titelErrorMessage}</p>}
-        </div>
-      </div>
-      <div className={`input-group mb-3 ${styles.inputForm}`}>
-        <span className={`input-group-text ${styles.groupText}`} id='untertitelAddon'>Untertitel</span>
-        <input
-          type='text'
-          className='form-control'
-          placeholder='Untertitel'
-          value={untertitel}
-          onChange={handleUntertitelChange}
-          onBlur={handleUntertitelBlur}
-          aria-describedby='untertitelAddon'
-        />
-        <div className={`input-group ${styles.errorMessage}`}>
-          {untertitelErrorMessage && <p style={{ color: 'red' }}>{untertitelErrorMessage}</p>}
-        </div>
-      </div>
-      <div className={`input-group mb-3 ${styles.inputForm}`}>
-      <span className={`input-group-text ${styles.groupText}`} id='isbnAddon'>ISBN</span>
-        <input
-          type='text'
-          className='form-control'
-          id='isbn'
-          placeholder='978-3442151479'
-          value={isbn}
-          onChange={handleIsbnChange}
-          onBlur={handleIsbnBlur}
-          style={{width: '150px'}}
-          aria-describedby='isbnAddon'
-        />
+  if (isInternalError) {
+    return <InternalErrorPage />
+  } else {
+    return (
+      <form style={{marginTop: '20px'}}>
+        <div className={`input-group mb-3 ${styles.inputForm}`}>
+          <span className={`input-group-text ${styles.groupText}`} id='titelAddon'>Titel</span>
+          <input
+            type='text'
+            className='form-control'
+            placeholder='Titel'
+            value={titel}
+            onChange={handleTitelChange}
+            onBlur={handleTitelBlur}
+            aria-describedby='titelAddon'
+          />
           <div className={`input-group ${styles.errorMessage}`}>
-            {isbnErrorMessage && <p style={{ color: 'red' }}>{isbnErrorMessage}</p>}
+            {titelErrorMessage && <p style={{ color: 'red' }}>{titelErrorMessage}</p>}
           </div>
-      </div>
-      <div className={`input-group mb-3 ${styles.inputForm}`}>
-        <span className={`input-group-text ${styles.groupText}`} id='artAddon'>Art</span>
-        <select
-          className='form-control'
-          value={art}
-          onChange={handleArtChange}
-          aria-describedby='artAddon'
+        </div>
+        <div className={`input-group mb-3 ${styles.inputForm}`}>
+          <span className={`input-group-text ${styles.groupText}`} id='untertitelAddon'>Untertitel</span>
+          <input
+            type='text'
+            className='form-control'
+            placeholder='Untertitel'
+            value={untertitel}
+            onChange={handleUntertitelChange}
+            onBlur={handleUntertitelBlur}
+            aria-describedby='untertitelAddon'
+          />
+          <div className={`input-group ${styles.errorMessage}`}>
+            {untertitelErrorMessage && <p style={{ color: 'red' }}>{untertitelErrorMessage}</p>}
+          </div>
+        </div>
+        <div className={`input-group mb-3 ${styles.inputForm}`}>
+        <span className={`input-group-text ${styles.groupText}`} id='isbnAddon'>ISBN</span>
+          <input
+            type='text'
+            className='form-control'
+            id='isbn'
+            placeholder='978-3442151479'
+            value={isbn}
+            onChange={handleIsbnChange}
+            onBlur={handleIsbnBlur}
+            style={{width: '150px'}}
+            aria-describedby='isbnAddon'
+          />
+            <div className={`input-group ${styles.errorMessage}`}>
+              {isbnErrorMessage && <p style={{ color: 'red' }}>{isbnErrorMessage}</p>}
+            </div>
+        </div>
+        <div className={`input-group mb-3 ${styles.inputForm}`}>
+          <span className={`input-group-text ${styles.groupText}`} id='artAddon'>Art</span>
+          <select
+            className='form-control'
+            value={art}
+            onChange={handleArtChange}
+            aria-describedby='artAddon'
+          >
+            <option>DRUCKAUSGABE</option>
+            <option>KINDLE</option>
+          </select>
+        </div>
+        <div className='input-group mb-3' style={{marginLeft: '60px'}}>
+          <div className='form-check form-check-inline'>
+            <input className='form-check-input' type='checkbox' id='tsBox' value='TYPESCRIPT' onChange={handleSchlagwörterChange}/>
+            <label className='form-check-label' htmlFor='tsBox'>TYPESCRIPT</label> 
+          </div>
+          <div className='form-check form-check-inline'>
+            <input className='form-check-input' type='checkbox' id='jsBox' value='JAVASCRIPT' onChange={handleSchlagwörterChange}/>
+            <label className='form-check-label' htmlFor='jsBox'>JAVASCRIPT</label>
+          </div>
+        </div>
+        <div className={`input-group mb-3 ${styles.inputForm}`}>
+          <span className={`input-group-text ${styles.groupText}`} id='ratingAddon'>Rating</span>
+          <select
+            className='form-control'
+            value={rating}
+            onChange={handleRatingChange}
+            aria-describedby='ratingAddon'
+          >
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+            <option value={4}>4</option>
+            <option value={5}>5</option>
+          </select>
+        </div>
+        <div className={`input-group mb-3 ${styles.inputForm}`}>
+          <span className={`input-group-text ${styles.groupText}`} id='preisAddon'>Preis</span>
+          <input
+            type='text'
+            className='form-control'
+            placeholder='200'
+            value={preis}
+            onChange={handlePreisChange}
+            onBlur={handlePreisBlur}
+            aria-describedby='preisAddon'
+          />
+          <div className={`input-group ${styles.errorMessage}`}>
+            {preisErrorMessage && <p style={{ color: 'red' }}>{preisErrorMessage}</p>}
+          </div>
+        </div>
+        <div className={`input-group mb-3 ${styles.inputForm}`}>
+          <span className={`input-group-text ${styles.groupText}`} id='rabattAddon'>Rabatt</span>
+          <input
+            type='text'
+            className='form-control'
+            placeholder='0.33'
+            value={rabatt}
+            onChange={handleRabattChange}
+            onBlur={handleRabattBlur}
+            aria-describedby='rabattAddon'
+          />
+          <div className={`input-group ${styles.errorMessage}`}>
+            {rabattErrorMessage && <p style={{ color: 'red' }}>{rabattErrorMessage}</p>}
+          </div>
+        </div>
+        <div className={`input-group mb-3 ${styles.inputForm}`}>
+          <span className={`input-group-text ${styles.groupText}`} id='lieferbarAddon'>Lieferbar</span>
+          <select
+            className='form-control'
+            value={lieferbar}
+            onChange={handleLieferbarChange}
+            aria-describedby='lieferbarAddon'
+          >
+            <option>True</option>
+            <option>False</option>
+          </select>
+        </div>
+        <div style={{marginLeft: '10px'}}>
+          <Calendar
+            value={calendarDate.toISOString()}
+            onChange={handleDateChange}
+            showNeighboringMonth={false}
+            locale={'de-DE'}
+            
+          />
+        </div>
+        <button
+          type='button'
+          className={`btn btn-secondary btn-lg btn-block ${styles.submit}`}
+          onClick={handleSubmit}
+          disabled={isInvalid}
         >
-          <option>DRUCKAUSGABE</option>
-          <option>KINDLE</option>
-        </select>
-      </div>
-      <div className='input-group mb-3' style={{marginLeft: '60px'}}>
-        <div className='form-check form-check-inline'>
-          <input className='form-check-input' type='checkbox' id='tsBox' value='TYPESCRIPT' onChange={handleSchlagwörterChange}/>
-          <label className='form-check-label' htmlFor='tsBox'>TYPESCRIPT</label> 
-        </div>
-        <div className='form-check form-check-inline'>
-          <input className='form-check-input' type='checkbox' id='jsBox' value='JAVASCRIPT' onChange={handleSchlagwörterChange}/>
-          <label className='form-check-label' htmlFor='jsBox'>JAVASCRIPT</label>
-        </div>
-      </div>
-      <div className={`input-group mb-3 ${styles.inputForm}`}>
-        <span className={`input-group-text ${styles.groupText}`} id='ratingAddon'>Rating</span>
-        <select
-          className='form-control'
-          value={rating}
-          onChange={handleRatingChange}
-          aria-describedby='ratingAddon'
-        >
-          <option value={1}>1</option>
-          <option value={2}>2</option>
-          <option value={3}>3</option>
-          <option value={4}>4</option>
-          <option value={5}>5</option>
-        </select>
-      </div>
-      <div className={`input-group mb-3 ${styles.inputForm}`}>
-        <span className={`input-group-text ${styles.groupText}`} id='preisAddon'>Preis</span>
-        <input
-          type='text'
-          className='form-control'
-          placeholder='200'
-          value={preis}
-          onChange={handlePreisChange}
-          onBlur={handlePreisBlur}
-          aria-describedby='preisAddon'
-        />
-        <div className={`input-group ${styles.errorMessage}`}>
-          {preisErrorMessage && <p style={{ color: 'red' }}>{preisErrorMessage}</p>}
-        </div>
-      </div>
-      <div className={`input-group mb-3 ${styles.inputForm}`}>
-        <span className={`input-group-text ${styles.groupText}`} id='rabattAddon'>Rabatt</span>
-        <input
-          type='text'
-          className='form-control'
-          placeholder='0.33'
-          value={rabatt}
-          onChange={handleRabattChange}
-          onBlur={handleRabattBlur}
-          aria-describedby='rabattAddon'
-        />
-        <div className={`input-group ${styles.errorMessage}`}>
-          {rabattErrorMessage && <p style={{ color: 'red' }}>{rabattErrorMessage}</p>}
-        </div>
-      </div>
-      <div className={`input-group mb-3 ${styles.inputForm}`}>
-        <span className={`input-group-text ${styles.groupText}`} id='lieferbarAddon'>Lieferbar</span>
-        <select
-          className='form-control'
-          value={lieferbar}
-          onChange={handleLieferbarChange}
-          aria-describedby='lieferbarAddon'
-        >
-          <option>True</option>
-          <option>False</option>
-        </select>
-      </div>
-      <div style={{marginLeft: '10px'}}>
-        <Calendar
-          value={calendarDate.toISOString()}
-          onChange={handleDateChange}
-          showNeighboringMonth={false}
-          locale={'de-DE'}
-          
-        />
-      </div>
-      <button
-        type='button'
-        className={`btn btn-secondary btn-lg btn-block ${styles.submit}`}
-        onClick={handleSubmit}
-        disabled={isInvalid}
-      >
-        Anlegen
-      </button>
-    </form>
-  );
+          Anlegen
+        </button>
+      </form>
+    );
+  }
 }

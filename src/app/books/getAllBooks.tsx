@@ -3,9 +3,8 @@
 import axios from 'axios';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import Head from 'next/head';
-import Script from 'next/script';
 import styles from './page.module.css';
+import InternalErrorPage from '../(search)/errorInternal';
 
 interface Book {
     titel: string;
@@ -18,6 +17,7 @@ interface Book {
 
 const GetAllBooks = () => {
   const [dictOfBooks, setDictOfBooks] = useState<Book[]>([]);
+  const [isInternalError, setIsInternalError] = useState(false);
 
   const isbn = useParams();
 
@@ -42,37 +42,43 @@ const GetAllBooks = () => {
       console.log(bookList);
       console.log(res);
       return res;
+    }).catch(() => {
+      setIsInternalError(true);
     });
   }, [isbn.id]);
 
-  return (
-    <table className={styles.table}>
-        <thead>
-          <tr className={styles.tr}>
-            <th>ISBN</th>
-            <th>Titel</th>
-            <th>Preis</th>
-            <th>Homepage</th>
-            <th>Datum</th>
-            <th>Rabatt</th>
-          </tr>
-        </thead>
-        <tbody>
-          {dictOfBooks.map((book, index) => (
-            <tr key={index}>
-              <td>{book.isbn}</td>
-              <td>{book.titel}</td>
-              <td>{book.preis}</td>
-              <td>
-                <a href={book.homepage}>{book.homepage}</a>
-              </td>
-              <td>{book.datum}</td>
-              <td>{book.rabatt}%</td>
+  if (isInternalError) {
+    return <InternalErrorPage/>
+  } else {
+    return (
+      <table className={styles.table}>
+          <thead>
+            <tr className={styles.tr}>
+              <th>ISBN</th>
+              <th>Titel</th>
+              <th>Preis</th>
+              <th>Homepage</th>
+              <th>Datum</th>
+              <th>Rabatt</th>
             </tr>
-          ))}
-        </tbody>
-    </table>
-  )
+          </thead>
+          <tbody>
+            {dictOfBooks.map((book, index) => (
+              <tr key={index}>
+                <td>{book.isbn}</td>
+                <td>{book.titel}</td>
+                <td>{book.preis}</td>
+                <td>
+                  <a href={book.homepage}>{book.homepage}</a>
+                </td>
+                <td>{book.datum}</td>
+                <td>{book.rabatt}%</td>
+              </tr>
+            ))}
+          </tbody>
+      </table>
+    );
+ } 
 }
 
 export default GetAllBooks;

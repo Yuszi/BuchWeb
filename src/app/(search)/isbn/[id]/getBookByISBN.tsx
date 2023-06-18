@@ -4,7 +4,8 @@ import axios from 'axios';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
-import NotFound from './not-found';
+import NotFound from '../../errorNotFound';
+import InternalErrorPage from '../../errorInternal';
 
 const GetBookByISBN = () => {
   const [titel, setTitel] = useState('');
@@ -13,7 +14,8 @@ const GetBookByISBN = () => {
   const [datum, setDatum] = useState('');
   const [rabatt, setRabatt] = useState('');
 
-  const [notFound, setNotFound] = useState(false);
+  const [isNotFound, setIsNotFound] = useState(false);
+  const [isInternalError, setIsInternalError] = useState(false);
 
   const isbn = useParams();
 
@@ -37,10 +39,10 @@ const GetBookByISBN = () => {
       }).catch((error) => {
         if (error.response && error.response.status === 404) {
           console.log('Book with an ISBN={} was not found.', isbn);
-          setNotFound(true);
+          setIsNotFound(true);
         } else {
           console.log('An error occurred.');
-          throw error;
+          setIsInternalError(true);
         }
       });
   };
@@ -49,8 +51,11 @@ const GetBookByISBN = () => {
     console.log(isbn.id);
     getBookWithIsbn(isbn.id);
   }, [isbn.id]);
-  if (notFound) {
+
+  if (isNotFound) {
     return <NotFound/>;
+  } else if (isInternalError) {
+    return <InternalErrorPage/>;
   } else {
     return (
       <div>
