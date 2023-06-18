@@ -1,12 +1,12 @@
 'use client';
 
 import axios from 'axios';
-import { useParams } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 
 const GetBookByISBN = () => {
-    const [titel, SetTitel] = useState('');
+  const [titel, SetTitel] = useState('');
   const [preis, SetPreis] = useState('');
   const [homepage, SetHomepage] = useState('');
   const [datum, SetDatum] = useState('');
@@ -30,8 +30,17 @@ const GetBookByISBN = () => {
       console.log(data.isbn);
 
       return data;
-    });
+    }).catch((error) => {
+      if (error.response && error.response.status === 404) {
+        console.log('Book with an ISBN={} was not found.', isbn);
+        
+      } else {
+        // Handle other errors
+        console.log('An error occurred.');
+      }
+    });;
   };
+
   useEffect(() => {
     console.log(isbn.id);
     getBookWithIsbn(isbn.id);

@@ -1,8 +1,24 @@
+'use client';
+
 import Head from 'next/head';
 import Script from 'next/script';
 import GetBookByISBN from './getBookByISBN';
+import { useEffect, useState } from 'react';
+import { notFound } from 'next/navigation';
 
 export default function ListBookWithIsbn() {
+  useEffect(() => {
+    function fetchBook() {
+      try {
+        GetBookByISBN();
+      } catch (error) {
+        notFound();
+      }
+    }
+
+    fetchBook();
+  }, [])
+  
   return (
     <>
       <Head>

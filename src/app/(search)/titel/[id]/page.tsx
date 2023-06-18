@@ -1,10 +1,27 @@
+'use client';
+
 import Head from 'next/head';
 import Script from 'next/script';
 import GetBookByTitel from './getBookByTitel';
+import { useEffect } from 'react';
+import { notFound } from 'next/navigation';
 
 const ListBookWithTitel = () => {
+  useEffect(() => {
+    function fetchBook() {
+      try {
+        GetBookByTitel();
+      } catch (error) {
+        notFound();
+      }
+    }
+
+    fetchBook();
+  }, [])
+
   return (
     <>
+      <meta name="robots" content="noindex" />
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link
