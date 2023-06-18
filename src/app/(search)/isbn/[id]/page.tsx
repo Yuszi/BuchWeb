@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Script from 'next/script';
-import GetBookByISBN from './GetBookByISBN';
+import GetBookByISBN from './getBookByISBN';
 
 export default function ListBookWithIsbn() {
   return (

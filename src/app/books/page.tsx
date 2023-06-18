@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Script from 'next/script';
-import GetAllBooks from './GetAllBooks';
+import GetAllBooks from './getAllBooks';
 
 const ListBookWithTitel = () => {
   return (

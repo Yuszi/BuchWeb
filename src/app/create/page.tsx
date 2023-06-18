@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Script from 'next/script';
-import CreateBook from './CreateBook';
+import CreateBook from './createBook';
 
 const CreateNewBook = () => {
   return (
