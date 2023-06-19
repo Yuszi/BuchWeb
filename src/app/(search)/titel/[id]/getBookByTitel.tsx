@@ -2,7 +2,7 @@
 
 import axios, { HttpStatusCode } from 'axios';
 import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import styles from './page.module.css';
 import InternalErrorPage from '../../../(errorPages)/errorInternal';
 import NotFoundPage from '../../../(errorPages)/errorNotFound';
@@ -15,6 +15,9 @@ const GetBookByTitel = () => {
   const [datum, setDatum] = useState('?');
   const [rabatt, setRabatt] = useState('?');
 
+  const [rating, setRating] = useState('?');
+  const [untertitel, setUntertitel] = useState('?');
+
   const [responseCode, setResponseCode] = useState(HttpStatusCode.Ok);
 
   const titel = useParams();
@@ -25,11 +28,14 @@ const GetBookByTitel = () => {
       .then((res) => {
         // wichtigen Teil des Responses filtern
         const data = res['data']['_embedded']['buecher']['0'];
+        console.log(data);
 
         setIsbn(data.isbn);
         setPreis(data.preis);
         setHomepage(data.homepage);
         setDatum(data.datum);
+        setRating(data.rating);
+        setUntertitel(data.titel.untertitel);
 
         const rabattBerechnung = (data.rabatt * 100).toFixed(1);
         setRabatt(rabattBerechnung + '%');
@@ -69,6 +75,8 @@ const GetBookByTitel = () => {
                 <th>Homepage</th>
                 <th>Datum</th>
                 <th>Rabatt</th>
+                <th>Rating</th>
+                <th>Untertitel</th>
               </tr>
             </thead>
             <tbody>
@@ -80,6 +88,8 @@ const GetBookByTitel = () => {
                 </td>
                 <td>{datum}</td>
                 <td>{rabatt}</td>
+                <td>{rating} Sterne</td>
+                <td>{untertitel}</td>
               </tr>
             </tbody>
           </table>

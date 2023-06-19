@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 import InternalErrorPage from '../(errorPages)/errorInternal';
+import { Button } from 'react-bootstrap';
 
 interface Book {
   titel: string;
@@ -60,9 +61,7 @@ const GetAllBooks = () => {
             <th>ISBN</th>
             <th>Titel</th>
             <th>Preis</th>
-            <th>Homepage</th>
             <th>Datum</th>
-            <th>Rabatt</th>
           </tr>
         </thead>
         <tbody>
@@ -71,13 +70,11 @@ const GetAllBooks = () => {
               <td>{book.isbn}</td>
               <td>{book.titel}</td>
               <td>{book.preis}</td>
-              <td>
-                <a href={book.homepage}>{book.homepage}</a>
-              </td>
               <td>{book.datum}</td>
-              <td>{book.rabatt}%</td>
+              <a href={`http://localhost:3002/titel/${book.titel}`}><Button>Details</Button></a>
             </tr>
           ))}
+          
         </tbody>
       </table>
     );
