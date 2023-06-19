@@ -6,9 +6,13 @@ import 'react-calendar/dist/Calendar.css';
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
 import * as yup from 'yup';
+import { HttpStatusCode } from 'axios';
 import InternalErrorPage from '../(search)/errorInternal';
+import ForbiddenPage from '../(search)/errorForbidden';
+import BadRequestPage from '../(search)/errorBadRequest';
 
 export default function CreateBook() {
+  // Hooks for input data
   const [isbn, setIsbn] = useState('');
   const [rating, setRating] = useState(1);
   const [art, setArt] = useState('DRUCKAUSGABE');
@@ -29,7 +33,8 @@ export default function CreateBook() {
   const [untertitelErrorMessage, setUntertitelErrorMessage] = useState('');
   const [isInvalid, setIsInvalid] = useState(true);
 
-  const [isInternalError, setIsInternalError] = useState(false);
+  // Hook for responses
+  const [responseCode, setResponseCode] = useState(HttpStatusCode.Ok)
 
 
   const handleIsbnChange = (e: any) => {
@@ -200,23 +205,28 @@ export default function CreateBook() {
         confirm(`Succesfully added ${titel}`);
       })
       .catch((error) => {
-
-        // TODO: switch, statt else if!
-        if (error == 'AxiosError: Request failed with status code 403') {
-          alert('Du bist wohl kein Admin');
-        } else if (error == 'AxiosError: Request failed with status code 400') {
-          alert('Keine richtige ISBN angegeben');
-        } else if (error == 'AxiosError: Network Error') {
-          setIsInternalError(true);
-        } else {
-          alert(error);
+        switch (error.response?.status) {
+          case HttpStatusCode.BadRequest:
+            setResponseCode(HttpStatusCode.BadRequest);
+            break;
+          case HttpStatusCode.Forbidden:
+            setResponseCode(HttpStatusCode.Forbidden);
+            break;
+          default:
+            setResponseCode(HttpStatusCode.InternalServerError);
+            break;
         }
       });
   };
 
-  if (isInternalError) {
-    return <InternalErrorPage />
-  } else {
+ switch (responseCode) {
+  case HttpStatusCode.BadRequest:
+    return <BadRequestPage/>;
+  case HttpStatusCode.Forbidden:
+    return <ForbiddenPage/>;
+  case HttpStatusCode.InternalServerError:
+    return <InternalErrorPage/>;
+  default:
     return (
       <form style={{marginTop: '20px'}}>
         <div className={`input-group mb-3 ${styles.inputForm}`}>
