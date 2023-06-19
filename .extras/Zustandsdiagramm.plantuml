@@ -1,0 +1,68 @@
+@startuml Zustandsdiagramm
+
+hide empty description
+
+[*] --> index
+index: Cookie
+
+state "Anmeldeoption" as Anmeldeoption{
+        [*] --> Anmeldefenster: Icon "Login"
+    Anmeldefenster --> Login: Button "Login"
+    Login --> LogOut: Button "LogOut"
+}
+
+state "/" as root {
+    Filter: suchkriterien
+    Suchfeld: form
+
+    [*] --> Filter
+    Filter --> Suchfeld: Filteroption
+    Suchfeld --> [*]: Suche durchgeführt
+
+}
+
+state "/create" as create {
+    Anlegeformular: form
+    state Resultat <<choice>>
+
+    [*] --> Anlegeformular
+    Anlegeformular --> Resultat
+    Resultat --> BackendFehler: Backend nicht gestartet
+    Resultat --> Forbidden: Keine Rechte
+    Resultat --> [*]: Erfolgreich Angelegt
+}
+
+state "/notes" as notes {
+    Notizen: carousel
+}
+
+state "/titel/[id]" as titel {
+
+    state ergebnis <<choice>>
+
+    [*] --> ergebnis
+    ergebnis --> Treffer: > 0 Treffer
+    ergebnis --> KeineTreffer: 0 Bücher
+    ergebnis --> BackendFehlerSuche: Backend nicht erreichbar
+}
+
+state "/isbn/[id]" as isbn {
+
+    state ergebnisISBN <<choice>>
+
+    [*] --> ergebnisISBN
+    ergebnisISBN --> TrefferISBN: > 0 Treffer
+    ergebnisISBN --> KeineTrefferISBN: 0 Bücher
+    ergebnisISBN --> BackendFehlerSucheISBN: Backend nicht erreichbar
+}
+
+index --> notes: Menüpunkt "Notes"
+index --> root: Menüpunkt "Home"
+index --> create: Menüpunkt "Add a Book"\n(authorisiert)
+index --> Anmeldeoption: Menüpunkt "Icon"
+create --> titel: Erfolgreich Angelegt
+root --> titel: Button "Details"
+root --> titel: Button "Suche"
+root --> isbn: Button "Suche"
+
+@enduml
