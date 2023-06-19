@@ -11,16 +11,14 @@ export const metadata = {
   description: 'Search and create a book',
 };
 
-const RootLayout = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html>
       <body>
         <main>
-          <nav className={`navbar navbar-expand-lg navbar-light bg-light ${styles.navbar}`}>
+          <nav
+            className={`navbar navbar-expand-lg navbar-light bg-light ${styles.navbar}`}
+          >
             <Link className={`navbar-brand ${styles.navbarBrand}`} href="/">
               Home
             </Link>
@@ -53,7 +51,7 @@ const RootLayout = ({
                   </Link>
                 </li>
                 <li className={`nav-item ${styles.navbarItem}`}>
-                <Login />
+                  <Login />
                 </li>
               </ul>
             </div>
@@ -63,6 +61,6 @@ const RootLayout = ({
       </body>
     </html>
   );
-}
+};
 
 export default RootLayout;

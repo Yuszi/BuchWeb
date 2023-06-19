@@ -20,7 +20,8 @@ const GetBookByTitel = () => {
   const titel = useParams();
 
   const fetchBookByTitel = (titel: any) => {
-    axios.get(`https://localhost:3000/rest/?titel=${titel}`)
+    axios
+      .get(`https://localhost:3000/rest/?titel=${titel}`)
       .then((res) => {
         // wichtigen Teil des Responses filtern
         const data = res['data']['_embedded']['buecher']['0'];
@@ -55,7 +56,7 @@ const GetBookByTitel = () => {
 
   switch (responseCode) {
     case HttpStatusCode.NotFound:
-      return <NotFoundPage/>
+      return <NotFoundPage />;
     case HttpStatusCode.Ok:
       return (
         <div>
@@ -85,8 +86,8 @@ const GetBookByTitel = () => {
         </div>
       );
     default:
-      return <InternalErrorPage/>;
+      return <InternalErrorPage />;
   }
-}
+};
 
 export default GetBookByTitel;

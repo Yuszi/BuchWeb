@@ -25,7 +25,7 @@ export default function CreateBook() {
   const [titel, setTitel] = useState('');
   const [untertitel, setUntertitel] = useState('');
 
-  // Hooks for validation 
+  // Hooks for validation
   const [isbnErrorMessage, setIsbnErrorMessage] = useState('');
   const [preisErrorMessage, setPreisErrorMessage] = useState('');
   const [rabattErrorMessage, setRabattErrorMessage] = useState('');
@@ -34,8 +34,7 @@ export default function CreateBook() {
   const [isInvalid, setIsInvalid] = useState(true);
 
   // Hook for responses
-  const [responseCode, setResponseCode] = useState(HttpStatusCode.Ok)
-
+  const [responseCode, setResponseCode] = useState(HttpStatusCode.Ok);
 
   const handleIsbnChange = (e: any) => {
     setIsbn(e.target.value);
@@ -57,7 +56,7 @@ export default function CreateBook() {
   };
   const handleSchlagwörterChange = (e: any) => {
     const { value, checked } = e.target;
-    
+
     if (checked) {
       setSchlagwörter((prev) => [...prev, value]);
     } else {
@@ -72,12 +71,14 @@ export default function CreateBook() {
     setUntertitel(e.target.value);
   };
 
-  
   // Validation of the input fields
   const handleIsbnBlur = async (event: any) => {
-    const schema = yup.string().required('ISBN-13 ist erforderlich').matches(/^[0-9]{3}-[0-9]{10}$/, 'Ungültige ISBN-13');
+    const schema = yup
+      .string()
+      .required('ISBN-13 ist erforderlich')
+      .matches(/^[0-9]{3}-[0-9]{10}$/, 'Ungültige ISBN-13');
     const { value } = event.target;
-  
+
     try {
       await schema.validate(value);
       // Validation passed
@@ -90,7 +91,10 @@ export default function CreateBook() {
     }
   };
   const handlePreisBlur = async (event: any) => {
-    const schema = yup.string().required('Preis ist erforderlich').matches(/^\s*?\d+([.,]\d{1,2})?\s*$/, 'Ungültiger Preis');
+    const schema = yup
+      .string()
+      .required('Preis ist erforderlich')
+      .matches(/^\s*?\d+([.,]\d{1,2})?\s*$/, 'Ungültiger Preis');
     const { value } = event.target;
 
     try {
@@ -105,9 +109,12 @@ export default function CreateBook() {
     }
   };
   const handleRabattBlur = async (event: any) => {
-    const schema = yup.string().required('Rabatt ist erforderlich').matches(/^(0(?:\.\d+)?|1(?:\.0)?)$/, 'Ungültiger Rabatt');
+    const schema = yup
+      .string()
+      .required('Rabatt ist erforderlich')
+      .matches(/^(0(?:\.\d+)?|1(?:\.0)?)$/, 'Ungültiger Rabatt');
     const { value } = event.target;
-  
+
     try {
       await schema.validate(value);
       // Validation passed
@@ -118,11 +125,14 @@ export default function CreateBook() {
       setRabattErrorMessage(error.message);
       setIsInvalid(true);
     }
-  };  
+  };
   const handleTitelBlur = async (event: any) => {
-    const schema = yup.string().required('Titel ist erforderlich').matches(/^[a-zA-Z0-9\s]+$/, 'Ungültiger Titel');
+    const schema = yup
+      .string()
+      .required('Titel ist erforderlich')
+      .matches(/^[a-zA-Z0-9\s]+$/, 'Ungültiger Titel');
     const { value } = event.target;
-  
+
     try {
       await schema.validate(value);
       // Validation passed
@@ -135,9 +145,12 @@ export default function CreateBook() {
     }
   };
   const handleUntertitelBlur = async (event: any) => {
-    const schema = yup.string().required('Untertitel ist erforderlich').matches(/^[a-zA-Z0-9\s]+$/, 'Ungültiger Untertitel');
+    const schema = yup
+      .string()
+      .required('Untertitel ist erforderlich')
+      .matches(/^[a-zA-Z0-9\s]+$/, 'Ungültiger Untertitel');
     const { value } = event.target;
-  
+
     try {
       await schema.validate(value);
       // Validation passed
@@ -149,7 +162,6 @@ export default function CreateBook() {
       setIsInvalid(true);
     }
   };
-
 
   const formatDate = (date: any) => {
     const year = date.getFullYear();
@@ -219,160 +231,225 @@ export default function CreateBook() {
       });
   };
 
- switch (responseCode) {
-  case HttpStatusCode.BadRequest:
-    return <BadRequestPage/>;
-  case HttpStatusCode.Forbidden:
-    return <ForbiddenPage/>;
-  case HttpStatusCode.InternalServerError:
-    return <InternalErrorPage/>;
-  default:
-    return (
-      <form style={{marginTop: '20px'}}>
-        <div className={`input-group mb-3 ${styles.inputForm}`}>
-          <span className={`input-group-text ${styles.groupText}`} id='titelAddon'>Titel</span>
-          <input
-            type='text'
-            className='form-control'
-            placeholder='Titel'
-            value={titel}
-            onChange={handleTitelChange}
-            onBlur={handleTitelBlur}
-            aria-describedby='titelAddon'
-          />
-          <div className={`input-group ${styles.errorMessage}`}>
-            {titelErrorMessage && <p style={{ color: 'red' }}>{titelErrorMessage}</p>}
-          </div>
-        </div>
-        <div className={`input-group mb-3 ${styles.inputForm}`}>
-          <span className={`input-group-text ${styles.groupText}`} id='untertitelAddon'>Untertitel</span>
-          <input
-            type='text'
-            className='form-control'
-            placeholder='Untertitel'
-            value={untertitel}
-            onChange={handleUntertitelChange}
-            onBlur={handleUntertitelBlur}
-            aria-describedby='untertitelAddon'
-          />
-          <div className={`input-group ${styles.errorMessage}`}>
-            {untertitelErrorMessage && <p style={{ color: 'red' }}>{untertitelErrorMessage}</p>}
-          </div>
-        </div>
-        <div className={`input-group mb-3 ${styles.inputForm}`}>
-        <span className={`input-group-text ${styles.groupText}`} id='isbnAddon'>ISBN</span>
-          <input
-            type='text'
-            className='form-control'
-            id='isbn'
-            placeholder='978-3442151479'
-            value={isbn}
-            onChange={handleIsbnChange}
-            onBlur={handleIsbnBlur}
-            style={{width: '150px'}}
-            aria-describedby='isbnAddon'
-          />
+  switch (responseCode) {
+    case HttpStatusCode.BadRequest:
+      return <BadRequestPage />;
+    case HttpStatusCode.Forbidden:
+      return <ForbiddenPage />;
+    case HttpStatusCode.InternalServerError:
+      return <InternalErrorPage />;
+    default:
+      return (
+        <form style={{ marginTop: '20px' }}>
+          <div className={`input-group mb-3 ${styles.inputForm}`}>
+            <span
+              className={`input-group-text ${styles.groupText}`}
+              id="titelAddon"
+            >
+              Titel
+            </span>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Titel"
+              value={titel}
+              onChange={handleTitelChange}
+              onBlur={handleTitelBlur}
+              aria-describedby="titelAddon"
+            />
             <div className={`input-group ${styles.errorMessage}`}>
-              {isbnErrorMessage && <p style={{ color: 'red' }}>{isbnErrorMessage}</p>}
+              {titelErrorMessage && (
+                <p style={{ color: 'red' }}>{titelErrorMessage}</p>
+              )}
             </div>
-        </div>
-        <div className={`input-group mb-3 ${styles.inputForm}`}>
-          <span className={`input-group-text ${styles.groupText}`} id='artAddon'>Art</span>
-          <select
-            className='form-control'
-            value={art}
-            onChange={handleArtChange}
-            aria-describedby='artAddon'
+          </div>
+          <div className={`input-group mb-3 ${styles.inputForm}`}>
+            <span
+              className={`input-group-text ${styles.groupText}`}
+              id="untertitelAddon"
+            >
+              Untertitel
+            </span>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Untertitel"
+              value={untertitel}
+              onChange={handleUntertitelChange}
+              onBlur={handleUntertitelBlur}
+              aria-describedby="untertitelAddon"
+            />
+            <div className={`input-group ${styles.errorMessage}`}>
+              {untertitelErrorMessage && (
+                <p style={{ color: 'red' }}>{untertitelErrorMessage}</p>
+              )}
+            </div>
+          </div>
+          <div className={`input-group mb-3 ${styles.inputForm}`}>
+            <span
+              className={`input-group-text ${styles.groupText}`}
+              id="isbnAddon"
+            >
+              ISBN
+            </span>
+            <input
+              type="text"
+              className="form-control"
+              id="isbn"
+              placeholder="978-3442151479"
+              value={isbn}
+              onChange={handleIsbnChange}
+              onBlur={handleIsbnBlur}
+              style={{ width: '150px' }}
+              aria-describedby="isbnAddon"
+            />
+            <div className={`input-group ${styles.errorMessage}`}>
+              {isbnErrorMessage && (
+                <p style={{ color: 'red' }}>{isbnErrorMessage}</p>
+              )}
+            </div>
+          </div>
+          <div className={`input-group mb-3 ${styles.inputForm}`}>
+            <span
+              className={`input-group-text ${styles.groupText}`}
+              id="artAddon"
+            >
+              Art
+            </span>
+            <select
+              className="form-control"
+              value={art}
+              onChange={handleArtChange}
+              aria-describedby="artAddon"
+            >
+              <option>DRUCKAUSGABE</option>
+              <option>KINDLE</option>
+            </select>
+          </div>
+          <div className="input-group mb-3" style={{ marginLeft: '60px' }}>
+            <div className="form-check form-check-inline">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="tsBox"
+                value="TYPESCRIPT"
+                onChange={handleSchlagwörterChange}
+              />
+              <label className="form-check-label" htmlFor="tsBox">
+                TYPESCRIPT
+              </label>
+            </div>
+            <div className="form-check form-check-inline">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="jsBox"
+                value="JAVASCRIPT"
+                onChange={handleSchlagwörterChange}
+              />
+              <label className="form-check-label" htmlFor="jsBox">
+                JAVASCRIPT
+              </label>
+            </div>
+          </div>
+          <div className={`input-group mb-3 ${styles.inputForm}`}>
+            <span
+              className={`input-group-text ${styles.groupText}`}
+              id="ratingAddon"
+            >
+              Rating
+            </span>
+            <select
+              className="form-control"
+              value={rating}
+              onChange={handleRatingChange}
+              aria-describedby="ratingAddon"
+            >
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+              <option value={4}>4</option>
+              <option value={5}>5</option>
+            </select>
+          </div>
+          <div className={`input-group mb-3 ${styles.inputForm}`}>
+            <span
+              className={`input-group-text ${styles.groupText}`}
+              id="preisAddon"
+            >
+              Preis
+            </span>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="200"
+              value={preis}
+              onChange={handlePreisChange}
+              onBlur={handlePreisBlur}
+              aria-describedby="preisAddon"
+            />
+            <div className={`input-group ${styles.errorMessage}`}>
+              {preisErrorMessage && (
+                <p style={{ color: 'red' }}>{preisErrorMessage}</p>
+              )}
+            </div>
+          </div>
+          <div className={`input-group mb-3 ${styles.inputForm}`}>
+            <span
+              className={`input-group-text ${styles.groupText}`}
+              id="rabattAddon"
+            >
+              Rabatt
+            </span>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="0.33"
+              value={rabatt}
+              onChange={handleRabattChange}
+              onBlur={handleRabattBlur}
+              aria-describedby="rabattAddon"
+            />
+            <div className={`input-group ${styles.errorMessage}`}>
+              {rabattErrorMessage && (
+                <p style={{ color: 'red' }}>{rabattErrorMessage}</p>
+              )}
+            </div>
+          </div>
+          <div className={`input-group mb-3 ${styles.inputForm}`}>
+            <span
+              className={`input-group-text ${styles.groupText}`}
+              id="lieferbarAddon"
+            >
+              Lieferbar
+            </span>
+            <select
+              className="form-control"
+              value={lieferbar}
+              onChange={handleLieferbarChange}
+              aria-describedby="lieferbarAddon"
+            >
+              <option>True</option>
+              <option>False</option>
+            </select>
+          </div>
+          <div style={{ marginLeft: '10px' }}>
+            <Calendar
+              value={calendarDate.toISOString()}
+              onChange={handleDateChange}
+              showNeighboringMonth={false}
+              locale={'de-DE'}
+            />
+          </div>
+          <button
+            type="button"
+            className={`btn btn-secondary btn-lg btn-block ${styles.submit}`}
+            onClick={handleSubmit}
+            disabled={isInvalid}
           >
-            <option>DRUCKAUSGABE</option>
-            <option>KINDLE</option>
-          </select>
-        </div>
-        <div className='input-group mb-3' style={{marginLeft: '60px'}}>
-          <div className='form-check form-check-inline'>
-            <input className='form-check-input' type='checkbox' id='tsBox' value='TYPESCRIPT' onChange={handleSchlagwörterChange}/>
-            <label className='form-check-label' htmlFor='tsBox'>TYPESCRIPT</label> 
-          </div>
-          <div className='form-check form-check-inline'>
-            <input className='form-check-input' type='checkbox' id='jsBox' value='JAVASCRIPT' onChange={handleSchlagwörterChange}/>
-            <label className='form-check-label' htmlFor='jsBox'>JAVASCRIPT</label>
-          </div>
-        </div>
-        <div className={`input-group mb-3 ${styles.inputForm}`}>
-          <span className={`input-group-text ${styles.groupText}`} id='ratingAddon'>Rating</span>
-          <select
-            className='form-control'
-            value={rating}
-            onChange={handleRatingChange}
-            aria-describedby='ratingAddon'
-          >
-            <option value={1}>1</option>
-            <option value={2}>2</option>
-            <option value={3}>3</option>
-            <option value={4}>4</option>
-            <option value={5}>5</option>
-          </select>
-        </div>
-        <div className={`input-group mb-3 ${styles.inputForm}`}>
-          <span className={`input-group-text ${styles.groupText}`} id='preisAddon'>Preis</span>
-          <input
-            type='text'
-            className='form-control'
-            placeholder='200'
-            value={preis}
-            onChange={handlePreisChange}
-            onBlur={handlePreisBlur}
-            aria-describedby='preisAddon'
-          />
-          <div className={`input-group ${styles.errorMessage}`}>
-            {preisErrorMessage && <p style={{ color: 'red' }}>{preisErrorMessage}</p>}
-          </div>
-        </div>
-        <div className={`input-group mb-3 ${styles.inputForm}`}>
-          <span className={`input-group-text ${styles.groupText}`} id='rabattAddon'>Rabatt</span>
-          <input
-            type='text'
-            className='form-control'
-            placeholder='0.33'
-            value={rabatt}
-            onChange={handleRabattChange}
-            onBlur={handleRabattBlur}
-            aria-describedby='rabattAddon'
-          />
-          <div className={`input-group ${styles.errorMessage}`}>
-            {rabattErrorMessage && <p style={{ color: 'red' }}>{rabattErrorMessage}</p>}
-          </div>
-        </div>
-        <div className={`input-group mb-3 ${styles.inputForm}`}>
-          <span className={`input-group-text ${styles.groupText}`} id='lieferbarAddon'>Lieferbar</span>
-          <select
-            className='form-control'
-            value={lieferbar}
-            onChange={handleLieferbarChange}
-            aria-describedby='lieferbarAddon'
-          >
-            <option>True</option>
-            <option>False</option>
-          </select>
-        </div>
-        <div style={{marginLeft: '10px'}}>
-          <Calendar
-            value={calendarDate.toISOString()}
-            onChange={handleDateChange}
-            showNeighboringMonth={false}
-            locale={'de-DE'}
-            
-          />
-        </div>
-        <button
-          type='button'
-          className={`btn btn-secondary btn-lg btn-block ${styles.submit}`}
-          onClick={handleSubmit}
-          disabled={isInvalid}
-        >
-          Anlegen
-        </button>
-      </form>
-    );
+            Anlegen
+          </button>
+        </form>
+      );
   }
 }

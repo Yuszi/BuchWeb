@@ -1,7 +1,7 @@
 /**
  * Renders the Loading component.
  * It displays a loading spinner animation while waiting for data or content to load.
- * 
+ *
  * @returns The rendered Loading component
  */
 const Loading = () => {
@@ -30,6 +30,6 @@ const Loading = () => {
       <div className="loader"></div>
     </>
   );
-}
+};
 
 export default Loading;

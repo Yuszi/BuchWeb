@@ -25,6 +25,6 @@ const ListBookWithTitel = () => {
       <GetBookByTitel />
     </>
   );
-}
+};
 
 export default ListBookWithTitel;

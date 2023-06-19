@@ -1,4 +1,3 @@
-
 # BuchWeb
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
@@ -22,7 +21,7 @@ We changed the default Port 3000 (NextJS) to Port 3002, so that the server doesn
 If you run:
 
 ```
-  npm run dev 
+  npm run dev
 ```
 
 It runs:
@@ -38,7 +37,7 @@ It runs:
 #### Why should you use Turbopack?
 
 ["[...]we wanted Turbopack to bundle the code in the development server. Turbopack can do it much faster, especially for larger applications, because it is written in Rust and skips optimization work that is only necessary for production"](https://turbo.build/pack/docs/why-turbopack)
-  
+
 #### How to implement Turbopack?
 
 Instead of running the server with:
@@ -55,7 +54,7 @@ We ran the server with:
 
 ## Project Directory Structure
 
-````
+```
 ├───.github/
 │   └───workflows/
 ├───.next/
@@ -92,7 +91,7 @@ We ran the server with:
     ├───page.module.css
     ├───page.tsx
     └───SearchBook.tsx
-````
+```
 
 ## API Reference
 

@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Script from 'next/script';
 import './page.module.css';
 
-const Page = (...args: []) =>  {
+const Page = (...args: []) => {
   return (
     <>
       <Head>
@@ -19,6 +19,6 @@ const Page = (...args: []) =>  {
       <SearchBook />
     </>
   );
-}
+};
 
 export default Page;

@@ -23,6 +23,6 @@ const ListBookWithTitel = () => {
       <GetAllBooks />
     </>
   );
-}
+};
 
 export default ListBookWithTitel;

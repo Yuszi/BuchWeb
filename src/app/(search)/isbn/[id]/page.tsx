@@ -25,6 +25,6 @@ const ListBookWithIsbn = () => {
       <GetBookByISBN />
     </>
   );
-}
+};
 
 export default ListBookWithIsbn;

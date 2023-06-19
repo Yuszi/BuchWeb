@@ -7,12 +7,12 @@ import styles from './page.module.css';
 import InternalErrorPage from '../(search)/errorInternal';
 
 interface Book {
-    titel: string;
-    isbn: string;
-    preis: number;
-    homepage: string;
-    datum: string;
-    rabatt: string;
+  titel: string;
+  isbn: string;
+  preis: number;
+  homepage: string;
+  datum: string;
+  rabatt: string;
 }
 
 const GetAllBooks = () => {
@@ -23,62 +23,65 @@ const GetAllBooks = () => {
 
   useEffect(() => {
     console.log(isbn.id);
-    axios.get(`https://localhost:3000/rest/`).then((res) => {
-      // wichtigen Teil des Responses filtern
-      const bookList = res['data']['_embedded']['buecher'].map(
-        (bookData: any) => {
-          const book = {
-            titel: bookData.titel.titel,
-            isbn: bookData.isbn,
-            preis: bookData.preis,
-            homepage: bookData.homepage,
-            datum: bookData.datum,
-            rabatt: (bookData.rabatt * 100).toFixed(1),
-          };
-          return book;
-        },
-      );
-      setDictOfBooks(bookList);
-      console.log(bookList);
-      console.log(res);
-      return res;
-    }).catch(() => {
-      setIsInternalError(true);
-    });
+    axios
+      .get(`https://localhost:3000/rest/`)
+      .then((res) => {
+        // wichtigen Teil des Responses filtern
+        const bookList = res['data']['_embedded']['buecher'].map(
+          (bookData: any) => {
+            const book = {
+              titel: bookData.titel.titel,
+              isbn: bookData.isbn,
+              preis: bookData.preis,
+              homepage: bookData.homepage,
+              datum: bookData.datum,
+              rabatt: (bookData.rabatt * 100).toFixed(1),
+            };
+            return book;
+          },
+        );
+        setDictOfBooks(bookList);
+        console.log(bookList);
+        console.log(res);
+        return res;
+      })
+      .catch(() => {
+        setIsInternalError(true);
+      });
   }, [isbn.id]);
 
   if (isInternalError) {
-    return <InternalErrorPage/>
+    return <InternalErrorPage />;
   } else {
     return (
       <table className={styles.table}>
-          <thead>
-            <tr className={styles.tr}>
-              <th>ISBN</th>
-              <th>Titel</th>
-              <th>Preis</th>
-              <th>Homepage</th>
-              <th>Datum</th>
-              <th>Rabatt</th>
+        <thead>
+          <tr className={styles.tr}>
+            <th>ISBN</th>
+            <th>Titel</th>
+            <th>Preis</th>
+            <th>Homepage</th>
+            <th>Datum</th>
+            <th>Rabatt</th>
+          </tr>
+        </thead>
+        <tbody>
+          {dictOfBooks.map((book, index) => (
+            <tr key={index}>
+              <td>{book.isbn}</td>
+              <td>{book.titel}</td>
+              <td>{book.preis}</td>
+              <td>
+                <a href={book.homepage}>{book.homepage}</a>
+              </td>
+              <td>{book.datum}</td>
+              <td>{book.rabatt}%</td>
             </tr>
-          </thead>
-          <tbody>
-            {dictOfBooks.map((book, index) => (
-              <tr key={index}>
-                <td>{book.isbn}</td>
-                <td>{book.titel}</td>
-                <td>{book.preis}</td>
-                <td>
-                  <a href={book.homepage}>{book.homepage}</a>
-                </td>
-                <td>{book.datum}</td>
-                <td>{book.rabatt}%</td>
-              </tr>
-            ))}
-          </tbody>
+          ))}
+        </tbody>
       </table>
     );
- } 
-}
+  }
+};
 
 export default GetAllBooks;

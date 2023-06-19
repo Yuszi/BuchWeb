@@ -23,6 +23,6 @@ const CreateNewBook = () => {
       <CreateBook />
     </>
   );
-}
+};
 
-export default CreateNewBook
+export default CreateNewBook;
