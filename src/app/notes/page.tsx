@@ -36,22 +36,54 @@ const Notes = () => {
             data-bs-target="#carouselExampleIndicators"
             data-bs-slide-to="2"
           ></li>
+          <li
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="3"
+          ></li>
+          <li
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="4"
+          ></li>
         </ol>
         <div className="carousel-inner">
           <div className="carousel-item active">
             <Image
-              src="/GettingStarted.png"
+              src="/ErsteSeiteRM.png"
               alt="First slide"
+              width={1000}
+              height={400}
+            />
+          </div>
+          <div className="carousel-item">
+            <Image
+              src="/ZweiteSeiteRM.png"
+              alt="Second slide"
               width={1000}
               height={500}
             />
           </div>
           <div className="carousel-item">
             <Image
-              src="/LearnMore.png"
-              alt="Second slide"
+              src="/DritteSeiteRM.png"
+              alt="Third slide"
               width={1000}
               height={500}
+            />
+          </div>
+          <div className="carousel-item">
+            <Image
+              src="/VierteSeiteRM.png"
+              alt="Fourth slide"
+              width={750}
+              height={1000}
+            />
+          </div>
+          <div className="carousel-item">
+            <Image
+              src="/FuenfteSeiteRM.png"
+              alt="Fifth slide"
+              width={750}
+              height={250}
             />
           </div>
         </div>
