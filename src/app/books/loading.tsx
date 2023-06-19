@@ -1,4 +1,10 @@
-export default function Loading() {
+/**
+ * Renders the Loading component.
+ * It displays a loading spinner animation while waiting for data or content to load.
+ * 
+ * @returns The rendered Loading component
+ */
+const Loading = () => {
   return (
     <>
       <style jsx>{`
@@ -25,3 +31,5 @@ export default function Loading() {
     </>
   );
 }
+
+export default Loading;

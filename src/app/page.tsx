@@ -1,9 +1,9 @@
-import SearchBook from './SearchBook';
+import SearchBook from './searchBook';
 import Head from 'next/head';
 import Script from 'next/script';
-import './page.module.css'; 
+import './page.module.css';
 
-export default function Page(...args: []) {
+const Page = (...args: []) =>  {
   return (
     <>
       <Head>
@@ -20,3 +20,5 @@ export default function Page(...args: []) {
     </>
   );
 }
+
+export default Page;

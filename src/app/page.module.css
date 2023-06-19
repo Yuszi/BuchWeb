@@ -1,67 +1,61 @@
-* {
-  box-sizing: border-box;
-}
-
-/* styles.module.css */
-
-.background-image {
-  background-image: url("C:\Zimmermann\BuchWeb\public/hintergrundbild.jpg");
-  background-size: cover;
-  background-position: center;
-  /* Weitere Hintergrund-Styles hier */
-}
-
-
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
-    Helvetica Neue, sans-serif;
-    padding: 0 2rem;
-}
-
-a {
-  color: #646cff;
-  text-decoration: none;
-  padding: 0;
-  margin: 0;
-}
-a:hover {
-  color: #535bf2;
-}
-
-main {
-  min-height: 100vh;
-  padding: 1rem 0;
+.form {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  width: 100%;
 }
 
-input, textarea { 
-  display: block;
-  max-width: 300px;
-  margin: 0.5rem 0;
-  padding: 0.75em 6em;
+.input {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  position: relative;
+  padding: 0 .4rem;
+  height: 60px;
+  width: 40%;
+  font-family: 'Lato', sans-serif;
+  color: black;
+  background: #f2f2f2;
+  border-width: 0;
 }
 
 .button {
-  background-color: #000000;
+  height: 60px;
+  width: 80px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
   border: none;
-  color: white;
-  padding: 0.5rem 2rem;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+  border-radius: 0 .25rem .25rem 0;
   cursor: pointer;
 }
 
-
-nav a {
-  font-weight: bold;
-  margin: 0 0.5rem;
-  text-decoration: underline;
+.dropdownMenuButton {
+  height: 60px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+  border: none;
+  border-radius: .25rem 0 0 .25rem;
+  cursor: pointer;
 }
 
+.navbar {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+}
+
+.navbarList {
+  margin-left: auto;
+}
+
+.navbarItem {
+  margin-right: 50px;
+  font-size: 125%;
+}
+
+.navbarBrand {
+  margin: 10px;
+  margin-left: 20px;
+  font-size: 125%;
+}

@@ -2,30 +2,26 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-
 import styles from './page.module.css';
 import { useRouter } from 'next/navigation';
+import { ThemeProvider } from 'next-themes';
 
-export default function SearchBook() {
+const SearchBook = () => {
   const router = useRouter();
   const [pathId, SetPathId] = useState('');
   const [path, SetPath] = useState('');
   const [placeholderText, SetPlaceholderText] = useState('');
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [disableInput, SetDisableInput] = useState(true);
+  const [buttonText, setButtonText] = useState('Filter');
 
-  const defaultSearchBarPlaceholderText = 'Press a Button for search option';
-  const defaultSearchButtonText = 'Filter';
+  const defaultPlaceholder = 'Wähle den Filter, um entweder mit ISBN oder Titel zu suchen!';
 
   useEffect(() => {
     console.log(pathId);
     SetPlaceholderText(
-      'Klicke den Button an, um entweder mit ISBN oder Titel zu suchen!',
-    );
+      defaultPlaceholder,
+      );
   }, [pathId]);
-
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
 
   const handleKeyPress = (e: any) => {
     if (e.key === 'Enter') {
@@ -36,76 +32,70 @@ export default function SearchBook() {
   const onFilterChange = (selectedPath: string, selectedPlaceholder: string) => {
     SetPath(selectedPath);
     SetPlaceholderText(selectedPlaceholder);
-    setDropdownOpen(false);
-  }
-
-  const resetFilter = () => {
-    SetPath('');
-    SetPathId('');
-    SetPlaceholderText(defaultSearchBarPlaceholderText)
+    setButtonText(selectedPath ? `Suche nach '${selectedPath}'` : 'Filter');
   }
 
   return (
-    <>
-      <div className="form-group">
-        <label htmlFor="exampleFormControlInput1"></label>
-        <input
-          type="text"
-          className="form-control"
-          id="exampleFormControlInput1"
-          placeholder={placeholderText}
-          onChange={(e) => SetPathId(e.target.value)}
-          onKeyPress={handleKeyPress}
-          value={pathId}
-          style={{ width: '300%' }}
-        />
-      </div>
-      <div className='d-flex'>
-        <div className="dropdown">
-          <button
-            className="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded={dropdownOpen}
-            onClick={toggleDropdown}
+    <ThemeProvider>
+      <div className={`${styles.form}`}>
+        <div className='dropdown'>
+          <button 
+          className={`btn btn-secondary dropdown-toggle ${styles.dropdownMenuButton}`}
+          type='button'
+          id='dropDownMenuButton'
+          data-bs-toggle='dropdown'
+          aria-expanded='false'
           >
-            {defaultSearchButtonText}: {path}
+            {buttonText}
           </button>
-          <div
-            className={`dropdown-menu ${dropdownOpen ? 'show' : ''}`}
-            aria-labelledby="dropdownMenuButton">
-            <button
-              className="dropdown-item"
-              onClick={() => onFilterChange('titel', 'Gebe den Titel ein')}
-              >
+          <ul className="dropdown-menu" aria-labelledby='dropDownMenuButton'>
+            <li><a 
+            className='dropdown-item btn btn-secondary' 
+            onClick={() => { 
+              onFilterChange('titel', 'Gebe den Titel ein');
+              SetDisableInput(false);
+            }}>
               Titel
-            </button>
-            <button
-              className="dropdown-item"
-              onClick={() => onFilterChange('isbn', 'Gebe die ISBN ein')}
-            >
+            </a></li>
+            <li><a 
+            className='dropdown-item btn btn-secondary' 
+            onClick={() => { 
+              onFilterChange('isbn', 'Gebe die ISBN ein');
+              SetDisableInput(false);
+            }}>
               ISBN
-            </button>
-          </div>
+            </a></li>
+            <li><hr className='dropdown-divided'></hr></li>
+            <li><a 
+            className='dropdown-item btn btn-primary'
+            onClick={() => {
+              onFilterChange('', defaultPlaceholder);
+              SetDisableInput(true);
+              SetPathId('');
+            }}>
+              Zurücksetzen
+            </a></li>
+          </ul>
         </div>
-        <button 
-        type='button' 
-        className='btn btn-secondary m-lg-2'
-        onClick={resetFilter}
-        >
-          Reset filter
-        </button>
-      </div>
-      <div>
-        <br />
-        <Link href={`/${path}/${pathId}`}>
-          <button type="button" className="btn btn-secondary btn-lg btn-block">
+        <input 
+        className={`${styles.input}`}
+        type="text" 
+        placeholder={placeholderText}
+        onChange={(e) => SetPathId(e.target.value)}
+        onKeyDown={handleKeyPress}
+        value={pathId}
+        disabled={disableInput} />
+        <Link href={`/${path}/${pathId}`}> 
+          <button 
+          className={`btn btn-secondary ${styles.button}`}
+          type="submit"
+          >
             Suchen
           </button>
         </Link>
       </div>
-    </>
+    </ ThemeProvider>
   );
 }
+
+export default SearchBook;
