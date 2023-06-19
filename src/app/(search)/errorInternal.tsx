@@ -1,3 +1,8 @@
+/**
+ * Renders the InternalErrorPage component.
+ * 
+ * @returns The rendered InternalErrorPage component.
+ */
 const InternalErrorPage = () => {
     return (
         <>

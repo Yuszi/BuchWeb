@@ -1,3 +1,8 @@
+/**
+ * Renders the ForbiddenPage component.
+ * 
+ * @returns The rendered ForbiddenPage component.
+ */
 const ForbiddenPage = () => {
     return (
         <>

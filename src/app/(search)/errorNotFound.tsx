@@ -1,3 +1,8 @@
+/**
+ * Renders the NotFoundPage component.
+ * 
+ * @returns The rendered NotFoundPage component.
+ */
 const NotFoundPage = () => {
   return (
     <>

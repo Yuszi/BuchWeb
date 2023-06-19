@@ -1,3 +1,8 @@
+/**
+ * Renders the BadRequestPage component.
+ * 
+ * @returns The rendered BadRequestPage component.
+ */
 const BadRequestPage = () => {
     return (
         <>
