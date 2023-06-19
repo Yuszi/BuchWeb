@@ -59,11 +59,11 @@ const GetBookByISBN = () => {
   } else {
     return (
       <div>
-          <h1>{isbn.id}</h1>
+          <h1>{titel}</h1>
           <table>
               <thead>
               <tr className={styles.tr}>
-                  <th>Titel</th>
+                  <th>ISBN</th>
                   <th>Preis</th>
                   <th>Homepage</th>
                   <th>Datum</th>
@@ -72,7 +72,7 @@ const GetBookByISBN = () => {
               </thead>
               <tbody>
               <tr>
-                  <td>{titel}</td>
+                  <td>{isbn.id}</td>
                   <td>{preis}</td>
                   <td>
                   <a href={homepage}>{homepage}</a>
