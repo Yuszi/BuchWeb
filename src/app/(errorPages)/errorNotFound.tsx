@@ -8,7 +8,7 @@ const NotFoundPage = () => {
     <>
       <div>
         <h1>404 - Page Not Found</h1>
-        <p>Sorry, there is nothing to see here</p>
+        <p>Kein Buch ist gefunden</p>
       </div>
     </>
   );
