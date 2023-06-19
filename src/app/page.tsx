@@ -1,4 +1,4 @@
-import SearchBook from './SearchBook';
+import SearchBook from './searchBook';
 import Head from 'next/head';
 import Script from 'next/script';
 import './page.module.css';
