@@ -3,10 +3,12 @@
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'bootstrap/dist/css/bootstrap.css';
-import axios from 'axios';
+import axios, { HttpStatusCode } from 'axios';
 import { useEffect, useState } from 'react';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import * as yup from 'yup';
+import InternalErrorPage from './(errorPages)/errorInternal';
+import UnathorizedPage from './(errorPages)/errorUnauthorized';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -17,6 +19,8 @@ const Login = () => {
   // For Validation
   const [isInvalid, setIsInvalid] = useState(false);
   const [usernameErrorMessage, setUsernameErrorMessage] = useState('');
+
+  const [responseCode, setResponseCode] = useState(HttpStatusCode.Ok);
 
   const handleUsernameChange = (e: any) => {
     setUsername(e.target.value);
@@ -60,6 +64,7 @@ const Login = () => {
       })
       .catch((error) => {
         console.log('Login failed:', error);
+        setResponseCode(HttpStatusCode.Unauthorized);
       });
   };
 
@@ -92,91 +97,99 @@ const Login = () => {
     setIsLoggedIn(false);
     deleteCookie('token');
   };
-  return (
-    <>
-      {isLoggedIn ? (
-        <span onClick={handleLoggingOut} style={{ cursor: 'pointer' }}>
-          <li>Log out</li>
-        </span>
-      ) : (
-        <div>
-          <FontAwesomeIcon
-            className="modal-toggle"
-            icon={faUser}
-            onClick={handleModalToggle}
-            size="2x"
-            style={{ cursor: 'pointer' }}
-          />
-        </div>
-      )}
-      {showModal && (
-        <div
-          className="modal show"
-          tabIndex={-1}
-          role="dialog"
-          style={{ display: 'block' }}
-        >
-          <div className="modal-dialog modal-sm" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Login</h5>
-                <button
-                  type="button"
-                  className="fa fa-window-close"
-                  onClick={handleModalToggle}
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                <form
-                  className="centered-form"
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                  }}
-                >
-                  <input
-                    className="form-control"
-                    style={{ margin: '5px 0' }}
-                    type="text"
-                    placeholder="Username"
-                    value={username}
-                    onChange={handleUsernameChange}
-                    onKeyDown={handleLoginPress}
-                    onBlur={handleUsernameBlur}
-                  />
-                  {usernameErrorMessage && (
-                    <p style={{ color: 'red' }}>{usernameErrorMessage}</p>
-                  )}
-                  <input
-                    className="form-control"
-                    style={{ margin: '5px 0' }}
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={handlePasswordChange}
-                    onKeyDown={handleLoginPress}
-                  />
-                </form>
-              </div>
-              <div className="modal-footer">
-                <button
-                  className="btn btn-primary"
-                  type="button"
-                  onClick={handleLogin}
-                  disabled={isInvalid}
-                >
-                  Login
-                </button>
+
+  switch (responseCode) {
+    case HttpStatusCode.Unauthorized:
+      return <UnathorizedPage/>;
+    case HttpStatusCode.Ok:
+      return (
+        <>
+          {isLoggedIn ? (
+            <span onClick={handleLoggingOut} style={{ cursor: 'pointer' }}>
+              <li>Log out</li>
+            </span>
+          ) : (
+            <div>
+              <FontAwesomeIcon
+                className="modal-toggle"
+                icon={faUser}
+                onClick={handleModalToggle}
+                size="2x"
+                style={{ cursor: 'pointer' }}
+              />
+            </div>
+          )}
+          {showModal && (
+            <div
+              className="modal show"
+              tabIndex={-1}
+              role="dialog"
+              style={{ display: 'block' }}
+            >
+              <div className="modal-dialog modal-sm" role="document">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title">Login</h5>
+                    <button
+                      type="button"
+                      className="fa fa-window-close"
+                      onClick={handleModalToggle}
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div className="modal-body">
+                    <form
+                      className="centered-form"
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <input
+                        className="form-control"
+                        style={{ margin: '5px 0' }}
+                        type="text"
+                        placeholder="Username"
+                        value={username}
+                        onChange={handleUsernameChange}
+                        onKeyDown={handleLoginPress}
+                        onBlur={handleUsernameBlur}
+                      />
+                      {usernameErrorMessage && (
+                        <p style={{ color: 'red' }}>{usernameErrorMessage}</p>
+                      )}
+                      <input
+                        className="form-control"
+                        style={{ margin: '5px 0' }}
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={handlePasswordChange}
+                        onKeyDown={handleLoginPress}
+                      />
+                    </form>
+                  </div>
+                  <div className="modal-footer">
+                    <button
+                      className="btn btn-primary"
+                      type="button"
+                      onClick={handleLogin}
+                      disabled={isInvalid}
+                    >
+                      Login
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
-    </>
-  );
+          )}
+        </>
+      );
+    default:
+      return <InternalErrorPage/>;
+  }
 };
 
 export default Login;
