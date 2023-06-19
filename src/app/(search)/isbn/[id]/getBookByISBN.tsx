@@ -1,21 +1,21 @@
 'use client';
 
-import axios from 'axios';
+import axios, { HttpStatusCode } from 'axios';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
-import NotFound from '../../errorNotFound';
 import InternalErrorPage from '../../errorInternal';
+import NotFoundPage from '../../errorNotFound';
 
 const GetBookByISBN = () => {
+  // Hooks for output data
   const [titel, setTitel] = useState('');
   const [preis, setPreis] = useState('');
   const [homepage, setHomepage] = useState('');
   const [datum, setDatum] = useState('');
   const [rabatt, setRabatt] = useState('');
 
-  const [isNotFound, setIsNotFound] = useState(false);
-  const [isInternalError, setIsInternalError] = useState(false);
+  const [responseCode, setResponseCode] = useState(HttpStatusCode.Ok);
 
   const isbn = useParams();
 
@@ -39,10 +39,10 @@ const GetBookByISBN = () => {
       }).catch((error) => {
         if (error.response && error.response.status === 404) {
           console.log('Book with an ISBN={} was not found.', isbn);
-          setIsNotFound(true);
+          setResponseCode(HttpStatusCode.NotFound);
         } else {
           console.log('An error occurred.');
-          setIsInternalError(true);
+          setResponseCode(HttpStatusCode.InternalServerError);
         }
       });
   };
@@ -52,38 +52,39 @@ const GetBookByISBN = () => {
     getBookWithIsbn(isbn.id);
   }, [isbn.id]);
 
-  if (isNotFound) {
-    return <NotFound/>;
-  } else if (isInternalError) {
-    return <InternalErrorPage/>;
-  } else {
-    return (
-      <div>
-          <h1>{titel}</h1>
-          <table>
-              <thead>
-              <tr className={styles.tr}>
-                  <th>ISBN</th>
-                  <th>Preis</th>
-                  <th>Homepage</th>
-                  <th>Datum</th>
-                  <th>Rabatt</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                  <td>{isbn.id}</td>
-                  <td>{preis}</td>
-                  <td>
-                  <a href={homepage}>{homepage}</a>
-                  </td>
-                  <td>{datum}</td>
-                  <td>{rabatt}</td>
-              </tr>
-              </tbody>
-          </table>
-      </div>
-    );
+  switch (responseCode) {
+    case HttpStatusCode.NotFound:
+      return <NotFoundPage/>
+    case HttpStatusCode.Ok:
+      return (
+        <div>
+            <h1>{titel}</h1>
+            <table>
+                <thead>
+                <tr className={styles.tr}>
+                    <th>ISBN</th>
+                    <th>Preis</th>
+                    <th>Homepage</th>
+                    <th>Datum</th>
+                    <th>Rabatt</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{isbn.id}</td>
+                    <td>{preis}</td>
+                    <td>
+                    <a href={homepage}>{homepage}</a>
+                    </td>
+                    <td>{datum}</td>
+                    <td>{rabatt}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+      );
+    default:
+      return <InternalErrorPage/>;
   }
 }
 
