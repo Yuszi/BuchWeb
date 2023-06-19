@@ -14,8 +14,11 @@ const GetBookByISBN = () => {
   const [homepage, setHomepage] = useState('');
   const [datum, setDatum] = useState('');
   const [rabatt, setRabatt] = useState('');
+  const [rating, setRating] = useState('?');
+  const [untertitel, setUntertitel] = useState('?');
 
   const [responseCode, setResponseCode] = useState(HttpStatusCode.Ok);
+
 
   const isbn = useParams();
 
@@ -30,6 +33,8 @@ const GetBookByISBN = () => {
         setPreis(data.preis);
         setHomepage(data.homepage);
         setDatum(data.datum);
+        setRating(data.rating);
+        setUntertitel(data.titel.untertitel);
 
         const rabattBerechnung = (data.rabatt * 100).toFixed(1);
         setRabatt(rabattBerechnung + '%');
@@ -69,6 +74,8 @@ const GetBookByISBN = () => {
                 <th>Homepage</th>
                 <th>Datum</th>
                 <th>Rabatt</th>
+                <th>Rating</th>
+                <th>Untertitel</th>
               </tr>
             </thead>
             <tbody>
@@ -80,6 +87,8 @@ const GetBookByISBN = () => {
                 </td>
                 <td>{datum}</td>
                 <td>{rabatt}</td>
+                <td>{rating} Sterne</td>
+                <td>{untertitel}</td>
               </tr>
             </tbody>
           </table>
