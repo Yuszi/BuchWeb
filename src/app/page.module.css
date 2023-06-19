@@ -59,3 +59,14 @@
   margin-left: 20px;
   font-size: 125%;
 }
+
+.carousel {
+  width: 50%;
+  height: 30rem;
+  max-height: 5%;
+  margin: 1rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f2f2;
+}
