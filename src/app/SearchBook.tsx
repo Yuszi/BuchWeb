@@ -110,7 +110,7 @@ const SearchBook = () => {
           </button>
         </Link>
       </div>
-      <HomepageCarousel/>
+      <HomepageCarousel />
     </ThemeProvider>
   );
 };

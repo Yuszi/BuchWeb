@@ -71,10 +71,11 @@ const GetAllBooks = () => {
               <td>{book.titel}</td>
               <td>{book.preis}</td>
               <td>{book.datum}</td>
-              <a href={`http://localhost:3002/titel/${book.titel}`}><Button>Details</Button></a>
+              <a href={`http://localhost:3002/titel/${book.titel}`}>
+                <Button>Details</Button>
+              </a>
             </tr>
           ))}
-          
         </tbody>
       </table>
     );

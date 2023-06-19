@@ -19,7 +19,6 @@ const GetBookByISBN = () => {
 
   const [responseCode, setResponseCode] = useState(HttpStatusCode.Ok);
 
-
   const isbn = useParams();
 
   const getBookWithIsbn = (isbn: any) => {

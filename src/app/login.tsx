@@ -100,7 +100,7 @@ const Login = () => {
 
   switch (responseCode) {
     case HttpStatusCode.Unauthorized:
-      return <UnathorizedPage/>;
+      return <UnathorizedPage />;
     case HttpStatusCode.Ok:
       return (
         <>
@@ -188,7 +188,7 @@ const Login = () => {
         </>
       );
     default:
-      return <InternalErrorPage/>;
+      return <InternalErrorPage />;
   }
 };
 

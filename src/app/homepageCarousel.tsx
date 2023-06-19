@@ -8,14 +8,14 @@ const HomepageCarousel = () => {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          style={{ maxWidth: '40%', maxHeight: '40%'}}
+          style={{ maxWidth: '40%', maxHeight: '40%' }}
           src="buch.jpg"
           alt="Wild Landscape"
         />
       </Carousel.Item>
       <Carousel.Item>
         <img
-          className='d-block w-100'
+          className="d-block w-100"
           style={{ maxWidth: '40%', maxHeight: '40%' }}
           src="buch1.jpg"
           alt="Camera"
@@ -23,7 +23,7 @@ const HomepageCarousel = () => {
       </Carousel.Item>
       <Carousel.Item>
         <img
-          className='d-block w-100'
+          className="d-block w-100"
           style={{ maxWidth: '40%', maxHeight: '40%' }}
           src="buch2.jpg"
           alt="Camera"
