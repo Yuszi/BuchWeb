@@ -14,10 +14,7 @@ const SearchBook = () => {
   const [disableInput, SetDisableInput] = useState(true);
   const [buttonText, setButtonText] = useState('Filter');
 
-
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const defaultPlaceholder = 'Klicke den Button an, um entweder mit ISBN oder Titel zu suchen!';
+  const defaultPlaceholder = 'Wähle den Filter, um entweder mit ISBN oder Titel zu suchen!';
 
   useEffect(() => {
     console.log(pathId);
@@ -35,7 +32,6 @@ const SearchBook = () => {
   const onFilterChange = (selectedPath: string, selectedPlaceholder: string) => {
     SetPath(selectedPath);
     SetPlaceholderText(selectedPlaceholder);
-    setDropdownOpen(false);
     setButtonText(selectedPath ? `Suche nach '${selectedPath}'` : 'Filter');
   }
 
