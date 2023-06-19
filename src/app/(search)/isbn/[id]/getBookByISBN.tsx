@@ -4,8 +4,8 @@ import axios, { HttpStatusCode } from 'axios';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
-import InternalErrorPage from '../../errorInternal';
-import NotFoundPage from '../../errorNotFound';
+import InternalErrorPage from '../../../(errorPages)/errorInternal';
+import NotFoundPage from '../../../(errorPages)/errorNotFound';
 
 const GetBookByISBN = () => {
   // Hooks for output data

@@ -7,9 +7,9 @@ import axios from 'axios';
 import { getCookie } from 'cookies-next';
 import * as yup from 'yup';
 import { HttpStatusCode } from 'axios';
-import InternalErrorPage from '../(search)/errorInternal';
-import ForbiddenPage from '../(search)/errorForbidden';
-import BadRequestPage from '../(search)/errorBadRequest';
+import InternalErrorPage from '../(errorPages)/errorInternal';
+import ForbiddenPage from '../(errorPages)/errorForbidden';
+import BadRequestPage from '../(errorPages)/errorBadRequest';
 
 export default function CreateBook() {
   // Hooks for input data

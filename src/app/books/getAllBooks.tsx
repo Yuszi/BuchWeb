@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
-import InternalErrorPage from '../(search)/errorInternal';
+import InternalErrorPage from '../(errorPages)/errorInternal';
 
 interface Book {
   titel: string;
